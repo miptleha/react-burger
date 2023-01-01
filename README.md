@@ -1,4 +1,4 @@
-# Космическая бургерная
+# РљРѕСЃРјРёС‡РµСЃРєР°СЏ Р±СѓСЂРіРµСЂРЅР°СЏ
 
-Стартовый коммит проекта с помощью [CRA](https://ru.reactjs.org/docs/create-a-new-react-app.html) с добавленными UI компонентами от [Яндекс](https://github.com/Yandex-Practicum/react-developer-burger-ui-components).
-Кода пока никакого не написано, это начальный коммит.
+РЎС‚Р°СЂС‚РѕРІС‹Р№ РєРѕРјРјРёС‚ РїСЂРѕРµРєС‚Р° СЃ РїРѕРјРѕС‰СЊСЋ [CRA](https://ru.reactjs.org/docs/create-a-new-react-app.html) СЃ РґРѕР±Р°РІР»РµРЅРЅС‹РјРё UI РєРѕРјРїРѕРЅРµРЅС‚Р°РјРё РѕС‚ [РЇРЅРґРµРєСЃ](https://github.com/Yandex-Practicum/react-developer-burger-ui-components).   
+РљРѕРґР° РїРѕРєР° РЅРёРєР°РєРѕРіРѕ РЅРµ РЅР°РїРёСЃР°РЅРѕ, СЌС‚Рѕ РЅР°С‡Р°Р»СЊРЅС‹Р№ РєРѕРјРјРёС‚.
