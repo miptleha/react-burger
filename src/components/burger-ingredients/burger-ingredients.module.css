@@ -1,3 +1,34 @@
-.note {
+.section {
+    flex: 0 0 600px;
+}
+
+.tabs {
+    display: flex;
+}
+
+.list {
+    overflow-y: auto;
+    max-height: 540px;
+    scrollbar-color: #2F2F37 #8585AD;
+	scrollbar-width: thin;
+}
+
+.group-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border: 1px solid white;
+    width: 280px;
+}
+
+.card-price {
+    display: flex;
+    justify-content: center;
+}
+
+.card-title {
+    height: 48px;
     text-align: center;
 }

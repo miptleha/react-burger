@@ -1,3 +1,31 @@
-.note {
-    text-align: center;
+.section {
+    flex: 0 0 600px;
+}
+
+.constructor { 
+    display: 'flex';
+    flex-direction: 'column';
+    gap: '10px';
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.totalIcon {
+    transform: scale(1.5);
+    transform-origin: top left;
+    width: 36px;
+    height: 32px;
+}
+
+.scroll {
+    overflow-y: auto;
+    max-height: 400px;
+    scrollbar-color: #2F2F37 #8585AD;
+	scrollbar-width: thin;
+    padding: 0;
+    list-style: none;
 }
