@@ -2,6 +2,7 @@ import AppHeader from './app-header/app-header';
 import BurgerConstructor from './burger-constructor/burger-constructor';
 import BurgerIngredients from './burger-ingredients/burger-ingredients';
 import styles from './app.module.css';
+import { data } from '../utils/data';
 
 function App() {
         return (
@@ -9,8 +10,8 @@ function App() {
                 <AppHeader/>
                 <main className={styles.main}>
                     <div className={styles.inner}>
-                        <BurgerIngredients/>
-                        <BurgerConstructor/>
+                        <BurgerIngredients data={data}/>
+                        <BurgerConstructor data={data}/>
                     </div>
                 </main>
             </>
