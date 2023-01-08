@@ -1,13 +1,19 @@
-import styles from './burger-constructor.module.css';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './burger-constructor.module.css';
+import { dataPropTypes } from '../../utils/dataPropTypes';
+import { BUN } from '../../utils/dataNames';
+import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
 
 function BurgerConstructor({ data }) {
-    const list = data.filter(item => item.type !== "bun");
-    const bun = data.find(item => item.name.includes("Краторная булка"));
+    const list = React.useMemo(() => data.filter(item => item.type !== BUN), [data]);
+    const bun = React.useMemo(() => data.find(item => item.type === BUN), [data]);
+    const sum = React.useMemo(() => bun.price * 2 + list.reduce((sum, item) => sum += item.price, 0), [list, bun]);
+
     return (
         <section className={styles.section}>
-            <div className="mt-25 ml-4">
+            <div className={`${styles.burger} mt-25 ml-4`}>
                 <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -18,7 +24,15 @@ function BurgerConstructor({ data }) {
                 />
                 <ul className={`${styles.scroll} mt-4 mb-4`}>
                     {list.map((item, index) => (
-                        <BurgerInnerItem text={item.name} price={item.price} thumbnail={item.image} key={index}/>
+                        <li className={`${styles['list-item']} mt-4`} key={index}>
+                            <span className={styles.draggable}><DragIcon type="primary" /></span>
+                            <ConstructorElement
+                                text={item.name}
+                                price={item.price}
+                                thumbnail={item.image}
+                                extraClass={`${styles.ingredient} ml-2`}
+                            />
+                        </li>
                     ))}
                 </ul>
                 <ConstructorElement
@@ -32,7 +46,7 @@ function BurgerConstructor({ data }) {
             </div>
 
             <div className={`${styles.total} mr-4 mt-10`}>
-                <div className="text text_type_digits-medium mr-2 mb-1">{bun.price * 2 + list.reduce((sum, item) => sum += item.price, 0)}</div>
+                <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
                 <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
                 <Button htmlType="button" type="primary">Оформить заказ</Button>
             </div>
@@ -41,27 +55,7 @@ function BurgerConstructor({ data }) {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.array //более точная проверка во вложенном компоненте
-}
-
-function BurgerInnerItem({ text, price, thumbnail }) {
-    return (
-        <li className={`${styles['list-item']} mt-4`}>
-            <span className={styles.draggable}><DragIcon type="primary" /></span>
-            <ConstructorElement
-                text={text}
-                price={price}
-                thumbnail={thumbnail}
-                extraClass={`${styles.ingredient} ml-2`}
-            />
-        </li>
-    );
-}
-
-BurgerInnerItem.propTypes = {
-    text: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    thumbnail: PropTypes.string.isRequired
+    data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
 }
 
 export default BurgerConstructor;

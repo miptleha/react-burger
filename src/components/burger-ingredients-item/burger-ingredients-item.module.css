@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 272px;
+}
+
+.card-image {
+    width: 240px;
+    height: 120px;
+}
+
+.card-price {
+    display: flex;
+    justify-content: center;
+}
+
+.card-title {
+    height: 48px;
+    text-align: center;
+}

@@ -26,23 +26,34 @@
 
 @media (max-height: 950px) {
     .scroll {
-        max-height: 364px;
+        max-height: 370px;
     }
-    
 }
 
 @media (max-height: 850px) {
     .scroll {
-        max-height: 264px;
+        max-height: 270px;
     }
-    
 }
 
 @media (max-height: 750px) {
     .scroll {
-        max-height: 174px;
+        max-height: 175px;
     }
-    
+}
+
+.burger {
+    padding: 0;
+}
+
+@media (max-height: 650px) {
+    .burger {
+        margin-top: 30px;
+    }
+
+    .total {
+        margin-top: 16px;
+    }
 }
 
 .list-item {

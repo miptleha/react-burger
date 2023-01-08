@@ -2,10 +2,6 @@
     flex: 0 0 600px;
 }
 
-.tabs {
-    display: flex;
-}
-
 .list {
     overflow-y: auto;
     max-height: 660px;
@@ -26,26 +22,30 @@
     .list {
         max-height: 560px;
     }
-    
 }
 
 @media (max-height: 850px) {
     .list {
         max-height: 460px;
     }
-    
 }
 
 @media (max-height: 750px) {
     .list {
         max-height: 360px;
     }
-    
+}
+
+@media (max-height: 650px) {
+    .list {
+        max-height: 260px;
+    }    
 }
 
 .list :last-child {
     margin-bottom: 0;
 }
+
 
 .group-content {
     display: flex;
@@ -53,25 +53,4 @@
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.card {
-    display: flex;
-    flex-direction: column;
-    width: 272px;
-}
-
-.card-image {
-    width: 240px;
-    height: 120px;
-}
-
-.card-price {
-    display: flex;
-    justify-content: center;
-}
-
-.card-title {
-    height: 48px;
-    text-align: center;
 }
