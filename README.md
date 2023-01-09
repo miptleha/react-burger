@@ -12,3 +12,6 @@
 ```
 git checkout sprint1/step1
 ```
+
+Обсуждение [замечаний](https://github.com/miptleha/react-burger/pull/1) от ревьювера.   
+Замечания были исправлены, было предложено продолжить оставшуюся верстку в sprint1/step2
