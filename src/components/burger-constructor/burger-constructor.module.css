@@ -1,0 +1,83 @@
+.section {
+    flex: 0 0 600px;
+}
+
+.scroll {
+    overflow-y: auto;
+    max-height: 464px;
+    scrollbar-width: thin;
+    scrollbar-color: #8585AD #2F2F37;
+    padding: 0;
+    list-style: none;
+}
+
+.scroll::-webkit-scrollbar {
+    background-color: #2F2F37;
+    width: 8px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.scroll > :first-child {
+    margin-top: 0;
+}
+
+@media (max-height: 950px) {
+    .scroll {
+        max-height: 370px;
+    }
+}
+
+@media (max-height: 850px) {
+    .scroll {
+        max-height: 270px;
+    }
+}
+
+@media (max-height: 750px) {
+    .scroll {
+        max-height: 175px;
+    }
+}
+
+.burger {
+    padding: 0;
+}
+
+@media (max-height: 650px) {
+    .burger {
+        margin-top: 30px;
+    }
+
+    .total {
+        margin-top: 16px;
+    }
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+}
+
+.ingredient {
+    background: var(--background);
+}
+
+.draggable {
+    cursor: grabbing;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.total-icon {
+    transform: scale(1.5);
+    transform-origin: top left;
+    width: 36px;
+    height: 32px;
+}
