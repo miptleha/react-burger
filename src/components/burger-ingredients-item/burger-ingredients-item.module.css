@@ -1,20 +1,37 @@
 .card {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 272px;
+    cursor: pointer;
 }
 
-.card-image {
+.image {
     width: 240px;
     height: 120px;
 }
 
-.card-price {
+.price {
     display: flex;
     justify-content: center;
 }
 
-.card-title {
+.title {
     height: 48px;
     text-align: center;
+}
+
+.count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4C4CFF;
+    border-radius: 16px;
 }

@@ -9,7 +9,7 @@ function IconLink({ isActive, icon: Icon, children, href }) {
                 {children}
             </span>
         </a>
-    )
+    );
 }
 
 IconLink.propTypes = {

@@ -1,15 +1,16 @@
-import React from 'react';
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { dataPropTypes } from '../../utils/dataPropTypes';
 import { BUN } from '../../utils/dataNames';
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import BurgerConstructorOrder from '../burger-constructor-order/burger-constructor-order';
 
 
 function BurgerConstructor({ data }) {
-    const list = React.useMemo(() => data.filter(item => item.type !== BUN), [data]);
-    const bun = React.useMemo(() => data.find(item => item.type === BUN), [data]);
-    const sum = React.useMemo(() => bun.price * 2 + list.reduce((sum, item) => sum += item.price, 0), [list, bun]);
+    const list = useMemo(() => data.filter(item => item.type !== BUN), [data]);
+    const bun = useMemo(() => data.find(item => item.type === BUN), [data]);
+    const sum = useMemo(() => bun.price * 2 + list.reduce((sum, item) => sum += item.price, 0), [list, bun]);
 
     return (
         <section className={styles.section}>
@@ -45,11 +46,7 @@ function BurgerConstructor({ data }) {
                 />
             </div>
 
-            <div className={`${styles.total} mr-4 mt-10`}>
-                <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
-                <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
-                <Button htmlType="button" type="primary">Оформить заказ</Button>
-            </div>
+            <BurgerConstructorOrder sum={sum} number="034536" />
         </section>
     );
 }

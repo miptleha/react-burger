@@ -7,6 +7,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
 const DOMAIN = "https://norma.nomoreparties.space";
 const API = "/api/ingredients";
+const STATUS_OK = 200;
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
     useEffect(() => {
         fetch(`${DOMAIN}${API}`)
             .then(res => {
-                if (res.status !== 200) {
+                if (res.status !== STATUS_OK) {
                     throw Error(`Неверный html-статус ответа: ${res.status}: ${res.statusText}`);
                 }
                 return res.json();
@@ -27,10 +28,10 @@ function App() {
                 setState({ data: res.data, isLoading: false, isError: false });
             })
             .catch(err => {
-                console.log(err);
+                console.log('ошибка получения данных', err);
                 setState({ data: null, isLoading: false, isError: true });
             });
-    }, [])
+    }, []);
 
     let waitMessage = null;
     if (state.isLoading) {

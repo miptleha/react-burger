@@ -1,0 +1,18 @@
+.image {
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-number {
+    text-shadow: #4C4CFF 1px 0 10px;
+}
+
+@media (max-height: 650px) {
+    .last-p {
+        margin-bottom: 16px;
+    }
+}
+
