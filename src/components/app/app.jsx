@@ -1,50 +1,38 @@
 import { useEffect, useState } from 'react';
 import styles from './app.module.css';
-//import { data } from '../../utils/data';
+import { dataLoad } from '../../utils/dataLoad';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
-const DOMAIN = "https://norma.nomoreparties.space";
-const API = "/api/ingredients";
-const STATUS_OK = 200;
+const MESSAGE_LOADING = "Подождите, идет загрузка...";
+const MESSAGE_ERROR = "Возникла ошибка при получении данных";
 
 function App() {
 
     const [state, setState] = useState({ data: null, isLoading: true, isError: false });
 
     useEffect(() => {
-        fetch(`${DOMAIN}${API}`)
-            .then(res => {
-                if (res.status !== STATUS_OK) {
-                    throw Error(`Неверный html-статус ответа: ${res.status}: ${res.statusText}`);
-                }
-                return res.json();
-            })
-            .then(res => {
-                if (!res.success) {
-                    throw Error('В json-ответе success !== true');
-                }
-                setState({ data: res.data, isLoading: false, isError: false });
-            })
-            .catch(err => {
-                console.log('ошибка получения данных', err);
-                setState({ data: null, isLoading: false, isError: true });
-            });
+        dataLoad()
+        .then(data => {
+            setState({ data: data, isLoading: false, isError: false });
+        })
+        .catch(err => {
+            console.log('ошибка получения данных', err);
+            setState({ data: null, isLoading: false, isError: true });
+        });
     }, []);
-
-    let waitMessage = null;
-    if (state.isLoading) {
-        waitMessage = "Подождите, идет загрузка...";
-    }
-    else if (state.isError) {
-        waitMessage = "Возникла ошибка при получении данных";
-    }
 
     return (
         <>
-            {waitMessage && <main className={styles.wait}><p className="text text_type_main-large">{waitMessage}</p></main>}
-            {!state.waitMessage && state.data && (
+            {(state.isLoading || state.isError) ? (
+                <main className={styles.wait}>
+                    <p className="text text_type_main-large">
+                        {state.isLoading ? MESSAGE_LOADING : state.isError ? MESSAGE_ERROR : undefined}
+                    </p>
+                </main>
+            ) :
+            state.data && (
                 <>
                     <AppHeader />
                     <main className={styles.main}>
