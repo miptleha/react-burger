@@ -7,7 +7,7 @@ function IngredientDetails({ item, onClose }) {
     return (
         <Modal caption="Детали ингридиента" onClose={onClose}>
             <img className={`${styles.image} mb-4`} src={item.image_large} alt="Изображение ингридиента" />
-            <p className="text-center text text_type_main-medium mb-8">{item.name}</p>
+            <p className={`${styles.name} text-center text text_type_main-medium mb-8`}>{item.name}</p>
             <div className={`${styles.detail} mb-15`}>
                 <div className={styles['detail-item']}>
                     <div className="text text_type_main-default text_color_inactive mb-2">Калории,ккал</div>

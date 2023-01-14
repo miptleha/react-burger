@@ -8,3 +8,7 @@
     height: 240px;
     display: block;
 }
+
+.name {
+    max-width: 480px;
+}
