@@ -9,6 +9,8 @@ npm update
 npm start
 ```
 
+На протяжении 3-х месяцев для закрепления полученных сведений о возможностях React проект делался по спринтам (каждый по 2 недели).
+
 ## Начальный коммит
 Стартовый коммит проекта с помощью [CRA](https://create-react-app.dev/docs/getting-started) с добавленными UI компонентами от [Яндекс](https://github.com/Yandex-Practicum/react-developer-burger-ui-components).   
 Кода пока никакого не написано, это начальный коммит.
