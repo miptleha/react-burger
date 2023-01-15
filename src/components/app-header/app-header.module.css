@@ -1,0 +1,32 @@
+.header {
+    background: var(--background);
+}
+
+.container {
+    display: flex;
+    width: var(--width-outer);
+    margin: 0 auto;
+}
+
+.center {
+    flex: 0 0 content;
+}
+
+.left {
+    flex: 1 0 100px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.right {
+    flex: 1 0 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+}
