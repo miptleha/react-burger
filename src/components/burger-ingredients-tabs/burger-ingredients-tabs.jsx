@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-ingredients-tabs.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredientsTabs({ tabChange }) {
-    const [tab, setTab] = React.useState(BUN);
+    const [tab, setTab] = useState(BUN);
 
     function change(type) {
         setTab(type);

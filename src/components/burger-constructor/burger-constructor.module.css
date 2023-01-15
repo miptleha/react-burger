@@ -50,10 +50,6 @@
     .burger {
         margin-top: 30px;
     }
-
-    .total {
-        margin-top: 16px;
-    }
 }
 
 .list-item {
@@ -67,17 +63,4 @@
 
 .draggable {
     cursor: grabbing;
-}
-
-.total {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.total-icon {
-    transform: scale(1.5);
-    transform-origin: top left;
-    width: 36px;
-    height: 32px;
 }

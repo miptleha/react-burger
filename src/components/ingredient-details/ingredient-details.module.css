@@ -1,0 +1,14 @@
+.detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image {
+    width: 480px;
+    height: 240px;
+    display: block;
+}
+
+.name {
+    max-width: 480px;
+}

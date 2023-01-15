@@ -42,11 +42,6 @@
     }    
 }
 
-.list :last-child {
-    margin-bottom: 0;
-}
-
-
 .group-content {
     display: flex;
     flex-wrap: wrap;

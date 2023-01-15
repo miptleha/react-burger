@@ -3,6 +3,13 @@
     width: var(--width-outer);
 }
 
+.wait {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .inner {
     margin-right: 20px;
     margin-left: 20px;
