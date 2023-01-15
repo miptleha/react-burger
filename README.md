@@ -10,7 +10,7 @@
 Данные с бургерами поместили в файл [src/utils/data.js](src/utils/data.js).  
 Делаем начальную верстку главной страницы приложения.
 ```
-git checkout sprint1/step1
+git checkout sprint-1/step-1
 ```
 
 Обсуждение [замечаний](https://github.com/miptleha/react-burger/pull/1) от ревьювера.   
@@ -22,3 +22,4 @@ git checkout sprint1/step1
 ```
 git checkout sprint-1/step-2
 ```
+Были замечания по загрузке данных сервера, успешно исправил, смержил все в main ветку.
