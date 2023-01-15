@@ -1,5 +1,14 @@
 # Космическая бургерная
 
+Учебный проект на курсе [react-разработчик](https://practicum.yandex.ru/react/) от yandex.
+
+```
+git clone https://github.com/miptleha/react-burger.git
+cd react-burger
+npm update
+npm start
+```
+
 ## Начальный коммит
 Стартовый коммит проекта с помощью [CRA](https://create-react-app.dev/docs/getting-started) с добавленными UI компонентами от [Яндекс](https://github.com/Yandex-Practicum/react-developer-burger-ui-components).   
 Кода пока никакого не написано, это начальный коммит.
