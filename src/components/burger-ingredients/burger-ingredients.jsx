@@ -35,7 +35,7 @@ function BurgerIngredients({ data }) {
                         <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
                         <ul className={styles['group-content']}>
                             {groups[type].map((item, index) => (
-                                <BurgerIngredientsItem key={type + index} item={item} count={index === 0 ? 1 : 0}/>
+                                <BurgerIngredientsItem key={type + index} item={item}/>
                             ))}
                         </ul>
                     </div> 

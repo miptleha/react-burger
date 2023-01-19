@@ -16,7 +16,7 @@ function OrderDetails({ number, onClose }) {
 }
 
 OrderDetails.propTypes = {
-    number: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
     onClose: PropTypes.func.isRequired
 }
 

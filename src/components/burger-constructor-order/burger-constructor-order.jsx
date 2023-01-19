@@ -1,14 +1,24 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState, useContext } from 'react';
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './burger-constructor-order.module.css';
 import OrderDetails from '../order-details/order-details';
+import { OrderContext } from '../../services/order-context';
+import { orderCreate } from '../../utils/orderCreate';
 
-function BurgerConstructorOrder({ sum, number }) {
+function BurgerConstructorOrder() {
     const [show, setShow] = useState(false);
+    const [number, setNumber] = useState('');
+    const { ingredients, sumState } = useContext(OrderContext);
 
     function showOrder() {
-        setShow(true);
+        orderCreate(ingredients)
+            .then(num => {
+                setNumber(num);
+                setShow(true);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     function hideOrder() {
@@ -17,17 +27,12 @@ function BurgerConstructorOrder({ sum, number }) {
 
     return (
         <div className={`${styles.total} mr-4 mt-10`}>
-            <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
+            <div className="text text_type_digits-medium mr-2 mb-1">{sumState.sum}</div>
             <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
             <Button htmlType="button" type="primary" onClick={showOrder}>Оформить заказ</Button>
             {show && <OrderDetails number={number} onClose={hideOrder} />}
         </div>
     );
-}
-
-BurgerConstructorOrder.propTypes = {
-    sum: PropTypes.number.isRequired,
-    number: PropTypes.string.isRequired
 }
 
 export default BurgerConstructorOrder;

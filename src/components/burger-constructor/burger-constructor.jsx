@@ -1,18 +1,33 @@
-import { useMemo } from 'react';
+import { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { dataPropTypes } from '../../utils/dataPropTypes';
 import { BUN } from '../../utils/dataNames';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorOrder from '../burger-constructor-order/burger-constructor-order';
-
+import { OrderContext } from '../../services/order-context';
 
 function BurgerConstructor({ data }) {
-    const list = useMemo(() => data.filter(item => item.type !== BUN), [data]);
-    const bun = useMemo(() => data.find(item => item.type === BUN), [data]);
-    const sum = useMemo(() => bun.price * 2 + list.reduce((sum, item) => sum += item.price, 0), [list, bun]);
 
-    return (
+    const { bun, setBun, ingredients, setIngredients, sumDispatcher } = useContext(OrderContext);
+
+    useEffect(() => {
+        const buns = data.filter(item => item.type === BUN);
+        setBun(buns[Math.floor(Math.random() * buns.length)]);
+
+        const list = data.filter(item => item.type !== BUN &&
+            Math.round(Math.random()) === 1);
+        setIngredients(list);
+    }, [data, setBun, setIngredients]);
+
+    useEffect(() => {
+        if (bun) {
+            const sum = bun.price * 2 + ingredients.reduce((sum, item) => sum += item.price, 0);
+            sumDispatcher({ type: 'set', value: sum });
+        }
+    }, [bun, ingredients, sumDispatcher]);
+
+    return bun && (
         <section className={styles.section}>
             <div className={`${styles.burger} mt-25 ml-4`}>
                 <ConstructorElement
@@ -24,9 +39,9 @@ function BurgerConstructor({ data }) {
                     extraClass={`${styles.ingredient} ml-8`}
                 />
                 <ul className={`${styles.scroll} mt-4 mb-4`}>
-                    {list.map((item, index) => (
+                    {ingredients.map((item, index) => (
                         <li className={`${styles['list-item']} mt-4`} key={index}>
-                            <span className={styles.draggable}><DragIcon type="primary" /></span>
+                            <DragIcon type="primary" />
                             <ConstructorElement
                                 text={item.name}
                                 price={item.price}
@@ -46,7 +61,7 @@ function BurgerConstructor({ data }) {
                 />
             </div>
 
-            <BurgerConstructorOrder sum={sum} number="034536" />
+            <BurgerConstructorOrder />
         </section>
     );
 }
