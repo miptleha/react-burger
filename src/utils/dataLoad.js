@@ -16,7 +16,7 @@ export function dataLoad() {
         }
         
         if (res.data && res.data.length > 0) {
-            return Promise.resolve(res.data);
+            return res.data;
         }
         else {
             throw Error('возвращен пустой или некорректный набор данных');
