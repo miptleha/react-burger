@@ -1,14 +1,15 @@
 import { useState, useContext, useMemo } from 'react';
 import { dataPropTypes } from '../../utils/dataPropTypes';
 import { OrderContext } from '../../services/order-context';
+import { BUN } from '../../utils/dataNames';
 
 import styles from './burger-ingredients-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { BUN } from '../../utils/dataNames';
+import Modal from '../modal/modal';
 
 function BurgerIngredientItem({ item }) {
-    const [ show, setShow ] = useState(false);
+    const [show, setShow] = useState(false);
     const { ingredients, bun } = useContext(OrderContext);
 
     const count = useMemo(() => {
@@ -20,12 +21,6 @@ function BurgerIngredientItem({ item }) {
             return list.length;
         }
     }, [item, bun, ingredients]);
-
-//    useEffect(() => {
-//        const list = ingredients.filter(i => i._id = item._id);
-//        console.log(`item: ${item.name}, list: ${list.length}, ing: ${ingredients.length}`);
-//        setCount(list.length);
-  //  }, [item, ingredients, setCount]);
 
     function showDialog() {
         setShow(true);
@@ -45,7 +40,11 @@ function BurgerIngredientItem({ item }) {
             </div>
             <div className={`${styles.title} text text_type_main-default`}>{item.name}</div>
             {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
-            {show && <IngredientDetails item={item} onClose={hideDialog} />}
+            {show && (
+                <Modal caption="Детали ингридиента" onClose={hideDialog}>
+                    <IngredientDetails item={item} />
+                </Modal>
+            )}
         </li>
     );
 }

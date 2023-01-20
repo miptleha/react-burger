@@ -1,15 +1,13 @@
 import { useContext, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
-import { dataPropTypes } from '../../utils/dataPropTypes';
 import { BUN } from '../../utils/dataNames';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorOrder from '../burger-constructor-order/burger-constructor-order';
 import { OrderContext } from '../../services/order-context';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor() {
 
-    const { bun, setBun, ingredients, setIngredients, sumDispatcher } = useContext(OrderContext);
+    const { data, bun, setBun, ingredients, setIngredients, sumDispatcher } = useContext(OrderContext);
 
     useEffect(() => {
         const buns = data.filter(item => item.type === BUN);
@@ -64,10 +62,6 @@ function BurgerConstructor({ data }) {
             <BurgerConstructorOrder />
         </section>
     );
-}
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
 }
 
 export default BurgerConstructor;

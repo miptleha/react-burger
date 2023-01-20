@@ -4,6 +4,7 @@ import styles from './burger-constructor-order.module.css';
 import OrderDetails from '../order-details/order-details';
 import { OrderContext } from '../../services/order-context';
 import { orderCreate } from '../../utils/orderCreate';
+import Modal from '../modal/modal';
 
 function BurgerConstructorOrder() {
     const [show, setShow] = useState(false);
@@ -30,7 +31,11 @@ function BurgerConstructorOrder() {
             <div className="text text_type_digits-medium mr-2 mb-1">{sumState.sum}</div>
             <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
             <Button htmlType="button" type="primary" onClick={showOrder}>Оформить заказ</Button>
-            {show && <OrderDetails number={number} onClose={hideOrder} />}
+            {show && (
+                <Modal onClose={hideOrder}>
+                    <OrderDetails number={number} />
+                </Modal>
+            )}
         </div>
     );
 }

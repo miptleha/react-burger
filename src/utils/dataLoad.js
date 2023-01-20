@@ -1,13 +1,8 @@
-import { DOMAIN, API_LOAD, STATUS_OK } from './api-constants';
+import { DOMAIN, API_LOAD } from './api-constants';
+import { request } from './request';
 
 export function dataLoad() {
-    return fetch(`${DOMAIN}${API_LOAD}`)
-    .then(res => {
-        if (res.status !== STATUS_OK) {
-            throw Error(`Неверный html-статус ответа: ${res.status}: ${res.statusText}`);
-        }
-        return res.json();
-    })
+    return request(`${DOMAIN}${API_LOAD}`)
     .then(res => {
         if (!res.success) {
             throw Error('В json-ответе success !== true');

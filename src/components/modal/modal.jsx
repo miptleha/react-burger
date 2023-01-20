@@ -38,7 +38,7 @@ function Modal({ caption, children, onClose }) {
 
 Modal.propTypes = {
     caption: PropTypes.string,
-    children: PropTypes.arrayOf(PropTypes.element),
+    children: PropTypes.element.isRequired,
     onClose: PropTypes.func.isRequired
 }
 

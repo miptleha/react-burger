@@ -44,10 +44,10 @@ function App() {
                         <AppHeader />
                         <main className={styles.main}>
                             <div className={styles.inner}>
-                                <OrderContext.Provider value={{bun, setBun, 
+                                <OrderContext.Provider value={{data: state.data, bun, setBun, 
                                     ingredients, setIngredients, sumState, sumDispatcher}}>
-                                    <BurgerIngredients data={state.data} />
-                                    <BurgerConstructor data={state.data} />
+                                    <BurgerIngredients />
+                                    <BurgerConstructor />
                                 </OrderContext.Provider>
                             </div>
                         </main>

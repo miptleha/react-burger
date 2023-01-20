@@ -1,12 +1,12 @@
-import { useMemo, useRef } from 'react';
-import PropTypes from 'prop-types';
+import { useContext, useMemo, useRef } from 'react';
 import styles from './burger-ingredients.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
-import { dataPropTypes } from '../../utils/dataPropTypes';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
+import { OrderContext } from '../../services/order-context';
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients() {
+    const { data } = useContext(OrderContext);
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -34,8 +34,8 @@ function BurgerIngredients({ data }) {
                     <div key={typeIndex}>
                         <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
                         <ul className={styles['group-content']}>
-                            {groups[type].map((item, index) => (
-                                <BurgerIngredientsItem key={type + index} item={item}/>
+                            {groups[type].map((item) => (
+                                <BurgerIngredientsItem key={item._id} item={item}/>
                             ))}
                         </ul>
                     </div> 
@@ -43,10 +43,6 @@ function BurgerIngredients({ data }) {
             </div>
         </section>
     );
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
 }
 
 export default BurgerIngredients;
