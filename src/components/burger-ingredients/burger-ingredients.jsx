@@ -1,12 +1,18 @@
-import { useContext, useMemo, useRef } from 'react';
-import styles from './burger-ingredients.module.css';
+import { useContext, useMemo, useRef, useState } from 'react';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
-import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
-import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
 import { OrderContext } from '../../services/order-context';
 
+import styles from './burger-ingredients.module.css';
+import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
+import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
+import Modal from '../modal/modal';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+
 function BurgerIngredients() {
+    const [itemShow, setItemShow] = useState(null);
+    
     const { data } = useContext(OrderContext);
+    
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -24,6 +30,15 @@ function BurgerIngredients() {
         headers[value].current.scrollIntoView({ behavior: "smooth" });
     }
 
+    function showDialog(item) {
+        setItemShow(item);
+    }
+
+    function hideDialog(e) {
+        setItemShow(null);
+        e.stopPropagation();
+    }
+
     return (
         <section className={styles.section}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -35,12 +50,18 @@ function BurgerIngredients() {
                         <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
                         <ul className={styles['group-content']}>
                             {groups[type].map((item) => (
-                                <BurgerIngredientsItem key={item._id} item={item}/>
+                                <BurgerIngredientsItem key={item._id} item={item} onShowDetails={showDialog}/>
                             ))}
                         </ul>
                     </div> 
                 ))}
             </div>
+
+            {itemShow && (
+                <Modal caption="Детали ингридиента" onClose={hideDialog}>
+                    <IngredientDetails item={itemShow} />
+                </Modal>
+            )}
         </section>
     );
 }

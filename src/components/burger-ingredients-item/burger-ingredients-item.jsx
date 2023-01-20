@@ -1,15 +1,13 @@
-import { useState, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { dataPropTypes } from '../../utils/dataPropTypes';
 import { OrderContext } from '../../services/order-context';
 import { BUN } from '../../utils/dataNames';
 
 import styles from './burger-ingredients-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
 
-function BurgerIngredientItem({ item }) {
-    const [show, setShow] = useState(false);
+function BurgerIngredientsItem({ item, onShowDetails }) {
     const { ingredients, bun } = useContext(OrderContext);
 
     const count = useMemo(() => {
@@ -22,17 +20,12 @@ function BurgerIngredientItem({ item }) {
         }
     }, [item, bun, ingredients]);
 
-    function showDialog() {
-        setShow(true);
-    }
-
-    function hideDialog(e) {
-        setShow(false);
-        e.stopPropagation();
+    function showDialogItem() {
+        onShowDetails(item);
     }
 
     return (
-        <li className={`${styles.card} mt-6 mb-8 ml-3 mr-2`} onClick={showDialog}>
+        <li className={`${styles.card} mt-6 mb-8 ml-3 mr-2`} onClick={showDialogItem}>
             <img className={`${styles.image} ml-4 mr-4 mb-1`} src={item.image} alt="Ингридиент" />
             <div className={`${styles.price} mb-1`}>
                 <span className="text text_type_digits-default mr-2">{item.price}</span>
@@ -40,17 +33,13 @@ function BurgerIngredientItem({ item }) {
             </div>
             <div className={`${styles.title} text text_type_main-default`}>{item.name}</div>
             {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
-            {show && (
-                <Modal caption="Детали ингридиента" onClose={hideDialog}>
-                    <IngredientDetails item={item} />
-                </Modal>
-            )}
         </li>
     );
 }
 
-BurgerIngredientItem.propTypes = {
-    item: dataPropTypes.isRequired
+BurgerIngredientsItem.propTypes = {
+    item: dataPropTypes.isRequired,
+    onShowDetails: PropTypes.func.isRequired
 }
 
-export default BurgerIngredientItem;
+export default BurgerIngredientsItem;
