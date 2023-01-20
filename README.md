@@ -34,3 +34,11 @@ git checkout sprint-1/step-1
 git checkout sprint-1/step-2
 ```
 Были [замечания](https://github.com/miptleha/react-burger/pull/4) по загрузке данных с сервера, успешно их исправил, работу приняли и я смержил все в main ветку.
+
+## Спринт 2
+### Шаг 1
+Данные перенесены в Context. Заказ отправляется на сервер.
+```
+git checkout sprint-2/step-1
+```
+[Замечания](https://github.com/miptleha/react-burger/pull/6) по изменениям в ветке
