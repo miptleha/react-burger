@@ -4,9 +4,10 @@
 
 .list {
     overflow-y: auto;
-    max-height: 660px;
+    max-height: calc(100vh - 300px);
     scrollbar-color: #8585AD #2F2F37;
 	scrollbar-width: thin;
+    position: relative;
 }
 
 .list::-webkit-scrollbar {
@@ -16,30 +17,6 @@
 
 .list::-webkit-scrollbar-thumb {
     background-color: #8585AD;
-}
-
-@media (max-height: 950px) {
-    .list {
-        max-height: 560px;
-    }
-}
-
-@media (max-height: 850px) {
-    .list {
-        max-height: 460px;
-    }
-}
-
-@media (max-height: 750px) {
-    .list {
-        max-height: 360px;
-    }
-}
-
-@media (max-height: 650px) {
-    .list {
-        max-height: 260px;
-    }    
 }
 
 .group-content {

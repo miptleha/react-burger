@@ -3,7 +3,7 @@
     width: var(--width-outer);
 }
 
-.wait {
+.wait-container {
     height: 100vh;
     display: flex;
     justify-content: center;

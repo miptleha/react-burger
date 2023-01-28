@@ -1,7 +1,6 @@
-import { useEffect, useState, useReducer } from 'react';
-import { dataLoad } from '../../utils/dataLoad';
-import { sumReducer, sumInitialValue } from '../../services/sum-reducer';
-import { OrderContext } from '../../services/order-context';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadIngredientsAction } from '../../services/actions/load-ingredients';
 
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -12,47 +11,34 @@ const MESSAGE_LOADING = "Подождите, идет загрузка...";
 const MESSAGE_ERROR = "Возникла ошибка при получении данных";
 
 function App() {
-
-    const [state, setState] = useState({ data: null, isLoading: true, isError: false });
+    const { data, dataLoading, dataHasErrors } = useSelector(state => state.loadIngredients);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dataLoad()
-            .then(data => {
-                setState({ data: data, isLoading: false, isError: false });
-            })
-            .catch(err => {
-                console.log('ошибка получения данных', err);
-                setState({ data: null, isLoading: false, isError: true });
-            });
-    }, []);
-
-    const [bun, setBun] = useState(null);
-    const [ingredients, setIngredients] = useState([]);
-    const [sumState, sumDispatcher] = useReducer(sumReducer, sumInitialValue);
+        dispatch(loadIngredientsAction());
+    }, [dispatch]);
 
     return (
         <>
-            {(state.isLoading || state.isError) ? (
-                <main className={styles.wait}>
+            {(dataLoading || dataHasErrors) ? (
+                <main className={styles["wait-container"]}>
                     <p className="text text_type_main-large">
-                        {state.isLoading ? MESSAGE_LOADING : state.isError ? MESSAGE_ERROR : undefined}
+                        {dataLoading ? MESSAGE_LOADING : dataHasErrors ? MESSAGE_ERROR : undefined}
                     </p>
                 </main>
-            ) :
-                state.data && (
-                    <>
-                        <AppHeader />
-                        <main className={styles.main}>
-                            <div className={styles.inner}>
-                                <OrderContext.Provider value={{data: state.data, bun, setBun, 
-                                    ingredients, setIngredients, sumState, sumDispatcher}}>
-                                    <BurgerIngredients />
-                                    <BurgerConstructor />
-                                </OrderContext.Provider>
-                            </div>
-                        </main>
-                    </>
-                )}
+            ) : data && data.length > 0 ? (
+                <>
+                    <AppHeader />
+                    <main className={styles.main}>
+                        <div className={styles.inner}>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
+                        </div>
+                    </main>
+                </>)
+                :
+                undefined
+            }
         </>
     );
 }

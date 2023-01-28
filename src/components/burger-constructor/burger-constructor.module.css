@@ -52,13 +52,17 @@
     }
 }
 
-.list-item {
+.empty-element {
     display: flex;
     align-items: center;
-    cursor: move;
+    text-align: center;
+    background: var(--background);
+}
+
+.empty-element-text {
+    flex: 1;
 }
 
 .ingredient {
     background: var(--background);
 }
-
