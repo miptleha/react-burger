@@ -1,6 +1,9 @@
-import { useContext, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
-import { OrderContext } from '../../services/order-context';
+import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
+import { SET_TAB } from '../../services/actions/tab-info';
+import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
@@ -9,10 +12,27 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function BurgerIngredients() {
-    const [itemShow, setItemShow] = useState(null);
-    
-    const { data } = useContext(OrderContext);
-    
+    const displayedIngredient = useSelector(getDisplayedIngredient);
+    const { data } = useSelector(getData);
+    const tab = useSelector(getTab);
+    const { bun, ingredients } = useSelector(getIngredients);
+
+    const countData = useMemo(() => {
+        const res = {};
+        if (bun) {
+            res[bun._id] = 2;
+        }
+        for (let item of ingredients) {
+            if (!(item._id in res)) {
+                res[item._id] = 0;
+            }
+            res[item._id]++;
+        }
+        return res;
+    }, [bun, ingredients]);
+
+    const dispatch = useDispatch();
+
     const groups = useMemo(() => {
         let res = {};
         res[BUN] = data.filter(i => i.type === BUN);
@@ -20,7 +40,7 @@ function BurgerIngredients() {
         res[MAIN] = data.filter(i => i.type === MAIN);
         return res;
     }, [data]);
-    
+
     const headers = {};
     headers[BUN] = useRef(null);
     headers[SAUCE] = useRef(null);
@@ -30,12 +50,24 @@ function BurgerIngredients() {
         headers[value].current.scrollIntoView({ behavior: "smooth" });
     }
 
-    function showDialog(item) {
-        setItemShow(item);
+    function handleScroll(e) {
+        const pos = e.currentTarget.scrollTop;
+        const distance = [];
+        for (let h of Object.values(headers)) {
+            const hPos = h.current.offsetTop;
+            distance.push(Math.abs(pos - hPos));
+        }
+        const min = Math.min(...distance);
+        const minIndex = distance.indexOf(min);
+        const newTab = Object.keys(headers)[minIndex];
+
+        if (tab !== newTab) {
+            dispatch({ type: SET_TAB, tab: newTab });
+        }
     }
 
     function hideDialog(e) {
-        setItemShow(null);
+        dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
     }
 
@@ -44,22 +76,22 @@ function BurgerIngredients() {
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
             <BurgerIngredientsTabs tabChange={tabChange} />
 
-            <div className={styles.list}>
+            <div className={styles.list} onScroll={handleScroll}>
                 {[BUN, SAUCE, MAIN].map((type, typeIndex) => (
                     <div key={typeIndex}>
-                        <h2 className="text text_type_main-medium mt-2" ref={headers[type]}>{names[type]}</h2>
+                        <h2 className="text text_type_main-medium mt-8" ref={headers[type]}>{names[type]}</h2>
                         <ul className={styles['group-content']}>
                             {groups[type].map((item) => (
-                                <BurgerIngredientsItem key={item._id} item={item} onShowDetails={showDialog}/>
+                                <BurgerIngredientsItem key={item._id} item={item} count={countData[item._id]} />
                             ))}
                         </ul>
-                    </div> 
+                    </div>
                 ))}
             </div>
 
-            {itemShow && (
+            {displayedIngredient && (
                 <Modal caption="Детали ингридиента" onClose={hideDialog}>
-                    <IngredientDetails item={itemShow} />
+                    <IngredientDetails item={displayedIngredient} />
                 </Modal>
             )}
         </section>

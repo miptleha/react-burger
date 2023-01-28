@@ -42,3 +42,9 @@ git checkout sprint-1/step-2
 git checkout sprint-2/step-1
 ```
 [Замечания](https://github.com/miptleha/react-burger/pull/6) по изменениям в ветке
+### Шаг 2
+Данные перенесены в redux (redux-toolkit?). Перетаскивание, удаление и сортировка ингредиентов.
+```
+git checkout sprint-2/step-2
+```
+

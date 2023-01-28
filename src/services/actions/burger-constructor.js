@@ -1,0 +1,6 @@
+export const SET_BUN = "SET_BUN";
+export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
+export const SWAP_INGREDIENTS = "SWAP_INGREDIENTS";
+export const SET_SUM = "SET_SUM";
+
