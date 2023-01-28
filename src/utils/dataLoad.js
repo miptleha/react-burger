@@ -1,15 +1,8 @@
-const DOMAIN = "https://norma.nomoreparties.space";
-const API = "/api/ingredients";
-const STATUS_OK = 200;
+import { DOMAIN, API_LOAD } from './api-constants';
+import { request } from './request';
 
 export function dataLoad() {
-    return fetch(`${DOMAIN}${API}`)
-    .then(res => {
-        if (res.status !== STATUS_OK) {
-            throw Error(`Неверный html-статус ответа: ${res.status}: ${res.statusText}`);
-        }
-        return res.json();
-    })
+    return request(`${DOMAIN}${API_LOAD}`)
     .then(res => {
         if (!res.success) {
             throw Error('В json-ответе success !== true');
@@ -17,9 +10,8 @@ export function dataLoad() {
         
         if (res.data && res.data.length > 0) {
             return res.data;
-        }
-        else {
-            throw Error('возвращен пустой или некорректный набор данных');
+        } else {
+            throw Error('Возвращен пустой или некорректный набор данных');
         }
     });
 }
