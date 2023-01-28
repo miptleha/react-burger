@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { SET_TAB } from '../../services/actions/tab-info';
+import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
@@ -11,10 +12,10 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function BurgerIngredients() {
-    const displayedIngredient = useSelector(state => state.ingredientWindow.displayedIngredient);
-    const data = useSelector(state => state.loadIngredients.data);
-    const tab = useSelector(state => state.tabInfo.tab);
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+    const displayedIngredient = useSelector(getDisplayedIngredient);
+    const { data } = useSelector(getData);
+    const tab = useSelector(getTab);
+    const { bun, ingredients } = useSelector(getIngredients);
 
     const countData = useMemo(() => {
         const res = {};

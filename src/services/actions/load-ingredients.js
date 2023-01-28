@@ -12,7 +12,7 @@ export function loadIngredientsAction() {
             dispatch({ type: LOAD_DATA_SUCCESS, data: data });
         })
         .catch(err => {
-            console.log('ошибка получения ингредиентов', err);
+            //console.log('ошибка получения ингредиентов', err);
             dispatch({ type: LOAD_DATA_ERROR });
         });
     }

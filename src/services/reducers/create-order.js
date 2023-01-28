@@ -16,9 +16,9 @@ export function createOrderReducer(state = initialState, action) {
         case CREATE_ORDER_START:
             return { ...state, orderLoading: true, orderHasErrors: false };
         case CREATE_ORDER_SUCCESS:
-            return { ...state, orderLoading: false, orderNumber: action.orderNumber };
+            return { ...state, orderLoading: false, orderHasErrors: false, orderNumber: action.orderNumber };
         case CREATE_ORDER_ERROR:
-            return { ...state, orderLoading: false, orderHasErrors: true };
+            return { ...state, orderLoading: false, orderHasErrors: true, orderNumber: initialState.orderNumber };
         case CLEAR_ORDER:
             return initialState;
             

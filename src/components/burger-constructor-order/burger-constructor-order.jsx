@@ -1,6 +1,7 @@
 import { useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/create-order';
+import { getIngredients, getOrder } from '../../services/selectors';
 
 import styles from './burger-constructor-order.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -8,8 +9,8 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 
 function BurgerConstructorOrder() {
-    const { bun, ingredients, sum } = useSelector(state => state.burgerConstructor);
-    const { orderNumber, orderLoading, orderHasErrors } = useSelector(state => state.createOrder);
+    const { bun, ingredients, sum } = useSelector(getIngredients);
+    const { orderNumber, orderLoading, orderHasErrors } = useSelector(getOrder);
 
     useEffect(() => {
         if (orderHasErrors) {

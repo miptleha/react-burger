@@ -17,7 +17,7 @@ export function loadIngredientsReducer(state = initialState, action) {
         case LOAD_DATA_SUCCESS:
             return { ...state, dataLoading: false, dataHasErrors: false, data: action.data };
         case LOAD_DATA_ERROR:
-            return { ...state, dataLoading: false, dataHasErrors: true };
+            return { ...state, dataLoading: false, dataHasErrors: true, data: initialState.data };
             
         default:
             return state;

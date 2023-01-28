@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { v4 as uuid } from 'uuid';
 import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/burger-constructor';
+import { getIngredients } from '../../services/selectors';
 
 import styles from './burger-constructor.module.css';
 import { BUN, SAUCE, MAIN } from '../../utils/dataNames';
@@ -12,7 +13,7 @@ import BurgerConstructorIngredient from '../burger-constructor-ingredient/burger
 
 function BurgerConstructor() {
     const dispatch = useDispatch();
-    const { bun, ingredients } = useSelector(state => state.burgerConstructor);
+    const { bun, ingredients } = useSelector(getIngredients);
 
     useEffect(() => {
         let sum = 0;

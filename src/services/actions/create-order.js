@@ -13,7 +13,7 @@ export function createOrderAction(ingredients) {
             dispatch({ type: CREATE_ORDER_SUCCESS, orderNumber: data });
         })
         .catch(err => {
-            console.log('ошибка создания заказа', err);
+            //console.log('ошибка создания заказа', err);
             dispatch({ type: CREATE_ORDER_ERROR });
         });
     }

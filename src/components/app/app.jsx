@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadIngredientsAction } from '../../services/actions/load-ingredients';
+import { getData } from '../../services/selectors';
 
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -11,7 +12,7 @@ const MESSAGE_LOADING = "Подождите, идет загрузка...";
 const MESSAGE_ERROR = "Возникла ошибка при получении данных";
 
 function App() {
-    const { data, dataLoading, dataHasErrors } = useSelector(state => state.loadIngredients);
+    const { data, dataLoading, dataHasErrors } = useSelector(getData);
     const dispatch = useDispatch();
 
     useEffect(() => {

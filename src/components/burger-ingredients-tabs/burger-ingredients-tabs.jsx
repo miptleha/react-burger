@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SET_TAB } from '../../services/actions/tab-info';
+import { getTab } from '../../services/selectors';
 
 import styles from './burger-ingredients-tabs.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredientsTabs({ tabChange }) {
-    const tab = useSelector(state => state.tabInfo.tab);
+    const tab = useSelector(getTab);
     const dispatch = useDispatch();
 
     function change(type) {
