@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { v4 as uuid } from 'uuid';
 import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT } from '../../services/actions/burger-constructor';
 import { getIngredients } from '../../services/selectors';
 
@@ -45,9 +44,9 @@ function BurgerConstructor() {
         }
     });
 
-    function deleteIngredient(index) {
+    const deleteIngredient = useCallback((index) => {
         dispatch({ type: DELETE_INGREDIENT, index: index })
-    }
+    }, [dispatch]);
 
     return (
         <section className={styles.section}>
@@ -69,7 +68,7 @@ function BurgerConstructor() {
                 </div>
                 <ul className={`${styles.scroll} mt-4 mb-4`} ref={dropTargetIngredient}>
                     {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
-                        <BurgerConstructorIngredient key={uuid()} item={item} index={index} onDelete={deleteIngredient} />
+                        <BurgerConstructorIngredient key={item.id} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
                         (<div className={`${styles["empty-element"]} constructor-element ml-8`}>
                             <div className={`${styles["empty-element-text"]} text text_type_main-default`}>Перетащите ингридиенты</div>

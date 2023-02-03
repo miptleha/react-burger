@@ -5,6 +5,7 @@ import {
     SWAP_INGREDIENTS,
     SET_SUM
 } from '../actions/burger-constructor';
+import { v4 as uuid } from 'uuid';
 
 const initialState = {
     bun: null,
@@ -17,7 +18,7 @@ export function burgerConstructorReducer(state = initialState, action) {
         case SET_BUN:
             return { ...state, bun: action.item };
         case ADD_INGREDIENT:
-            return { ...state, ingredients: [...state.ingredients, action.item] };
+            return { ...state, ingredients: [...state.ingredients, {...action.item, id: uuid()}] };
         case DELETE_INGREDIENT:
             return { ...state, ingredients: [...state.ingredients].filter((_item, index) => index !== action.index) };
         case SWAP_INGREDIENTS:

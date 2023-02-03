@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
@@ -66,10 +66,10 @@ function BurgerIngredients() {
         }
     }
 
-    function hideDialog(e) {
+    const hideDialog = useCallback((e) => {
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
-    }
+    }, [dispatch]);
 
     return (
         <section className={styles.section}>
