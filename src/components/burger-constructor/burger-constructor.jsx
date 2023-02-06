@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import { SET_BUN, ADD_INGREDIENT, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/burger-constructor';
+import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/burger-constructor';
 import { getIngredients } from '../../services/selectors';
 
 import styles from './burger-constructor.module.css';
