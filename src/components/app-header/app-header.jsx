@@ -8,8 +8,8 @@ function AppHeader() {
             <div className={styles.container}>
                 <nav className={styles.left}>
                     <ul className={styles.list}>
-                        <li><IconLink href="/" icon={BurgerIcon} isActive>Конструктор</IconLink></li>
-                        <li><IconLink href="/" icon={ListIcon}>Лента заказов</IconLink></li>
+                        <li><IconLink href="/" icon={BurgerIcon}>Конструктор</IconLink></li>
+                        <li><IconLink href="/asd" icon={ListIcon}>Лента заказов</IconLink></li>
                     </ul>
                 </nav>
 
@@ -18,7 +18,7 @@ function AppHeader() {
                 </div>
 
                 <div className={styles.right}>
-                    <IconLink href="/" icon={ProfileIcon}>Личный кабинет</IconLink>
+                    <IconLink href="/profile" icon={ProfileIcon}>Личный кабинет</IconLink>
                 </div>
             </div>
         </header>

@@ -1,46 +1,46 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadIngredientsAction } from '../../services/actions/load-ingredients';
-import { getData } from '../../services/selectors';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-
-const MESSAGE_LOADING = "Подождите, идет загрузка...";
-const MESSAGE_ERROR = "Возникла ошибка при получении данных";
+import { MainPage, IngredientPage, 
+    Profile, ProfileEdit, ProfileOrders, ProfileLogout,
+    Login, Register, ResetPassword, ForgotPassword, NotFound404 
+} from '../../pages';
+import ProtectedRoute from '../protected-route';
 
 function App() {
-    const { data, dataLoading, dataHasErrors } = useSelector(getData);
     const dispatch = useDispatch();
-
+    const location = useLocation();
+    const stateLocation = location.state && location.state.location;
+    const item = location.state && location.state.item;
     useEffect(() => {
-        dispatch(loadIngredientsAction());
-    }, [dispatch]);
+        dispatch({type: SET_DISPLAYED_INGREDIENT, item: item});
+    }, [dispatch, item]);
 
     return (
-        <>
-            {(dataLoading || dataHasErrors) ? (
-                <main className={styles["wait-container"]}>
-                    <p className="text text_type_main-large">
-                        {dataLoading ? MESSAGE_LOADING : dataHasErrors ? MESSAGE_ERROR : undefined}
-                    </p>
-                </main>
-            ) : data && data.length > 0 ? (
-                <>
-                    <AppHeader />
-                    <main className={styles.main}>
-                        <div className={styles.inner}>
-                            <BurgerIngredients />
-                            <BurgerConstructor />
-                        </div>
-                    </main>
-                </>)
-                :
-                undefined
-            }
-        </>
+        <div className={styles.container}>
+            <AppHeader />
+            <div className={styles.main}>
+                <Routes location={stateLocation || location}>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/ingredients/:id" element={<IngredientPage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/profile" element={<ProtectedRoute element={<Profile />} />}>
+                        <Route index element={<ProfileEdit />} />
+                        <Route path="orders" element={<ProfileOrders />} />
+                        <Route path="logout" element={<ProfileLogout />} />
+                        <Route path="*" element={<NotFound404 />} />
+                    </Route>
+                    <Route path="*" element={<NotFound404 />} />
+                </Routes>
+            </div>
+        </div >
     );
 }
 

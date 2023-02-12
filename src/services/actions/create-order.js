@@ -1,4 +1,4 @@
-import { orderCreate } from '../../utils/orderCreate';
+import { orderCreate } from '../../utils/api';
 
 export const CREATE_ORDER_START = "CREATE_ORDER_START";
 export const CREATE_ORDER_SUCCESS = "CREATE_ORDER_SUCCESS";
@@ -9,11 +9,10 @@ export function createOrderAction(ingredients) {
     return function(dispatch) {
         dispatch({ type: CREATE_ORDER_START });
         orderCreate(ingredients)
-        .then(data => {
-            dispatch({ type: CREATE_ORDER_SUCCESS, orderNumber: data });
+        .then(result => {
+            dispatch({ type: CREATE_ORDER_SUCCESS, orderNumber: result.order.number });
         })
         .catch(err => {
-            //console.log('ошибка создания заказа', err);
             dispatch({ type: CREATE_ORDER_ERROR });
         });
     }
