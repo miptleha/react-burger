@@ -54,3 +54,4 @@ git checkout sprint-2/step-2
 ```
 git checkout sprint-3/step-1
 ```
+[Замечания](https://github.com/miptleha/react-burger/pull/9) от ревьювера.

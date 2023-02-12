@@ -5,6 +5,7 @@ import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { SET_TAB } from '../../services/actions/tab-info';
 import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
+import { URL_ROOT } from '../../utils/routes';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
@@ -69,7 +70,7 @@ function BurgerIngredients() {
     }
 
     const hideDialog = useCallback((e) => {
-        navigate('/', { replace: true });
+        navigate(URL_ROOT, { replace: true });
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
     }, [dispatch, navigate]);

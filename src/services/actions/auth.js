@@ -78,11 +78,10 @@ export function authLoginAction(form) {
 export function authLogoutAction() {
     return function (dispatch) {
         dispatch({ type: AUTH_LOGOUT_START });
+        localStorage.removeItem("refreshToken");
+        deleteCookie("accessToken");
         logoutUser()
             .then(result => {
-                localStorage.removeItem("refreshToken");
-                deleteCookie("accessToken");
-
                 dispatch({ type: AUTH_LOGOUT_SUCCESS });
             })
             .catch(err => {

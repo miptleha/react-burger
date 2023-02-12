@@ -4,6 +4,7 @@ import { useDrag } from 'react-dnd';
 import propTypes from 'prop-types';
 import { dataPropTypes } from '../../utils/dataPropTypes';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
+import { URL_INGREDIENTS } from '../../utils/routes';
 
 import styles from './burger-ingredients-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -15,7 +16,7 @@ function BurgerIngredientsItem({ item, count }) {
     const location = useLocation();
 
     const showDialogItem = useCallback(() => {
-        navigate(`/ingredients/${item._id}`, { replace: true, state: { location: location, item: item } });
+        navigate(`${URL_INGREDIENTS}/${item._id}`, { replace: true, state: { location: location, item: item } });
         dispatch({type: SET_DISPLAYED_INGREDIENT, item: item});
     }, [dispatch, navigate, location, item]);
 
@@ -25,7 +26,6 @@ function BurgerIngredientsItem({ item, count }) {
     });
 
     return (
-        //<Link to={`/ingredients/${item._id}`}>
         <li className={`${styles.card} mt-6 mb-2 ml-3 mr-2`} onClick={showDialogItem} ref={dragRef}>
             <img className={`${styles.image} ml-4 mr-4 mb-1`} src={item.image} alt="Ингридиент" />
             <div className={`${styles.price} mb-1`}>
@@ -35,7 +35,6 @@ function BurgerIngredientsItem({ item, count }) {
             <div className={`${styles.title} text text_type_main-default`}>{item.name}</div>
             {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
         </li>
-        //</Link>
     );
 }
 

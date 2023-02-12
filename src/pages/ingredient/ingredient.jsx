@@ -1,5 +1,4 @@
-import IngredientDetails from '../components/ingredient-details/ingredient-details';
-import './pages.css';
+import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 
 function IngredientPage() {
     return (

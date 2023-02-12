@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from '../hooks/useForm';
-import { getAuth } from '../services/selectors';
-import { authGetUserAction, authForgotPasswordAction, AUTH_CLEAR_ERRORS } from '../services/actions/auth';
+import { useForm } from '../../hooks/useForm';
+import { getAuth } from '../../services/selectors';
+import { authGetUserAction, authForgotPasswordAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
+import { URL_LOGIN, URL_RESET_PASSWORD, URL_ROOT } from '../../utils/routes';
 
-import './pages.css';
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Loader from '../components/loader/loader';
+import Loader from '../../components/loader/loader';
 
 function ForgotPassword() {
     const dispatch = useDispatch();
@@ -29,12 +29,12 @@ function ForgotPassword() {
 
     useEffect(() => {
         if (userLoggedIn) {
-            navigate('/', { replace: true });
+            navigate(URL_ROOT, { replace: true });
         } else if (state.wasSubmit && requestError) {
             alert(`[Восстановление пароля] ${requestError}`);
             dispatch({ type: AUTH_CLEAR_ERRORS });
         } else if (state.wasSubmit && requestSuccess) {
-            navigate('/reset-password', { replace: true });
+            navigate(URL_RESET_PASSWORD, { replace: true });
         }
     }, [dispatch, state.wasSubmit, userLoggedIn, requestError, requestSuccess, navigate]);
 
@@ -46,7 +46,7 @@ function ForgotPassword() {
                         <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                         <EmailInput extraClass="mb-6" placeholder='Укажите e-mail' name="email" value={state.email} onChange={onChange} />
                         {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.email === ""}>Восстановить</Button>}
-                        <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to="/login">Войти</Link></p>
+                        <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to={URL_LOGIN}>Войти</Link></p>
                     </>)}
             </form>
         </main>

@@ -1,5 +1,3 @@
-import './pages.css';
-
 function ProfileOrders() {
     return (
         <div>

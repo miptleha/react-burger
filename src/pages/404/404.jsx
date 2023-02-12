@@ -1,5 +1,3 @@
-import './pages.css';
-
 function NotFound404() {
     return (
         <div className="page-container">

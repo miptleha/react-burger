@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/create-order';
 import { authGetUserAction } from '../../services/actions/auth';
 import { getAuth, getIngredients, getOrder } from '../../services/selectors';
+import { URL_LOGIN } from '../../utils/routes';
 
 import styles from './burger-constructor-order.module.css';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -43,7 +44,7 @@ function BurgerConstructorOrder() {
         }
 
         if (!userLoggedIn) {
-            navigate('/login', { replace: true });
+            navigate(URL_LOGIN, { replace: true });
         } else {
             const orderIngredients = [...ingredients];
             if (bun) {

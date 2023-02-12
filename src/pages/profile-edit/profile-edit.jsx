@@ -1,13 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from '../hooks/useForm';
-import { getAuth } from '../services/selectors';
-import { authPatchUserAction, authGetUserAction, AUTH_CLEAR_ERRORS } from '../services/actions/auth';
+import { useForm } from '../../hooks/useForm';
+import { getAuth } from '../../services/selectors';
+import { authPatchUserAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
 
-import './pages.css';
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import Loader from '../components/loader/loader';
+import Loader from '../../components/loader/loader';
 
 function ProfileEdit() {
     const dispatch = useDispatch();
@@ -15,7 +14,6 @@ function ProfileEdit() {
 
     const submitCb = useCallback((state) => {
         dispatch(authPatchUserAction(state));
-        setLoadState({ loadUser: false, patchUser: true });
     }, [dispatch]);
 
     const { requestStart, requestError, requestSuccess, user } = useSelector(getAuth);
@@ -26,11 +24,6 @@ function ProfileEdit() {
         password: ""
     }, submitCb);
 
-    const [ loadState, setLoadState ] = useState({
-        loadUser: true,
-        patchUser: false
-    });
-
     const valueChange = (user.name !== "" && (state.name !== user.name || state.email !== user.email || state.password.length > 0));
 
     const onReset = useCallback((e) => {
@@ -39,26 +32,13 @@ function ProfileEdit() {
     }, [setState, user]);
 
     useEffect(() => {
-        if (user.name === "") {
-            dispatch(authGetUserAction());
-        }
-        setLoadState({ loadUser: true, patchUser: false });
-    }, [user.name, navigate, dispatch]);
-
-    useEffect(() => {
-        if (requestSuccess) {
-            if (loadState.loadUser) {
-                setState({ name: user.name, email: user.email, password: "" });
-                setLoadState({ loadUser: false, patchUser: false });
-            } else if (loadState.patchUser) {
-                navigate('/profile', { replace: true });
-            }
-        } else if (requestError && (loadState.loadUser || loadState.patchUser)) {
-            alert(`[Профиль ${loadState.loadUser ? "загрузка" : loadState.patchUser ? "сохранение" : "?"}] ${requestError}`);
-            setLoadState({ loadUser: false, patchUser: false });
+        if (requestError) {
+            alert(`[Профиль сохранение] ${requestError}`);
             dispatch({type: AUTH_CLEAR_ERRORS});
+        } else {
+            setState({ name: user.name, email: user.email, password: "" });
         }
-    }, [dispatch, requestSuccess, loadState, setLoadState, setState, user, navigate, requestError]);
+    }, [dispatch, setState, user, navigate, requestError, requestSuccess]);
 
     return (
         <form className="page-container-inner" onSubmit={onSubmit} onReset={onReset}>

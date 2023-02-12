@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
+import { URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
+    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY } from '../../utils/routes';
 
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -25,19 +27,19 @@ function App() {
             <AppHeader />
             <div className={styles.main}>
                 <Routes location={stateLocation || location}>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/ingredients/:id" element={<IngredientPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/profile" element={<ProtectedRoute element={<Profile />} />}>
+                    <Route path={URL_ROOT} element={<MainPage />} />
+                    <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
+                    <Route path={URL_LOGIN} element={<Login />} />
+                    <Route path={URL_REGISTER} element={<Register />} />
+                    <Route path={URL_RESET_PASSWORD} element={<ResetPassword />} />
+                    <Route path={URL_FORGOT_PASSWORD} element={<ForgotPassword />} />
+                    <Route path={URL_PROFILE} element={<ProtectedRoute element={<Profile />} />}>
                         <Route index element={<ProfileEdit />} />
-                        <Route path="orders" element={<ProfileOrders />} />
-                        <Route path="logout" element={<ProfileLogout />} />
-                        <Route path="*" element={<NotFound404 />} />
+                        <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
+                        <Route path={URL_PROFILE_LOGOUT} element={<ProfileLogout />} />
+                        <Route path={URL_ANY} element={<NotFound404 />} />
                     </Route>
-                    <Route path="*" element={<NotFound404 />} />
+                    <Route path={URL_ANY} element={<NotFound404 />} />
                 </Routes>
             </div>
         </div >

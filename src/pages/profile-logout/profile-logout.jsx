@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { authLogoutAction, AUTH_CLEAR_ERRORS } from '../services/actions/auth';
-import { getAuth } from '../services/selectors';
+import { authLogoutAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
+import { getAuth } from '../../services/selectors';
+import { URL_LOGIN } from '../../utils/routes';
 
-import './pages.css';
-import Loader from '../components/loader/loader';
+import Loader from '../../components/loader/loader';
 
 function ProfileLogout() {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function ProfileLogout() {
             dispatch({type: AUTH_CLEAR_ERRORS});
             setStarted(false);
         } else if (started && requestSuccess) {
-            navigate('/login', { replace: true });
+            navigate(URL_LOGIN, { replace: true });
         }
     }, [dispatch, started, requestError, requestSuccess, navigate]);
 
