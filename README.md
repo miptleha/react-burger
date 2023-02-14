@@ -48,3 +48,10 @@ git checkout sprint-2/step-1
 git checkout sprint-2/step-2
 ```
 
+## Спринт 3
+Сделать странички логина, регистрации, восстановления пароля, профиля.   
+Авторизация пользователя (для некоторых операций и страниц требуется вход в систему).
+```
+git checkout sprint-3/step-1
+```
+[Замечания](https://github.com/miptleha/react-burger/pull/9) от ревьювера.

@@ -1,9 +1,11 @@
 import { useMemo, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { SET_TAB } from '../../services/actions/tab-info';
 import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
+import { URL_ROOT } from '../../utils/routes';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
@@ -32,6 +34,7 @@ function BurgerIngredients() {
     }, [bun, ingredients]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const groups = useMemo(() => {
         let res = {};
@@ -67,9 +70,10 @@ function BurgerIngredients() {
     }
 
     const hideDialog = useCallback((e) => {
+        navigate(URL_ROOT, { replace: true });
         dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
         e.stopPropagation();
-    }, [dispatch]);
+    }, [dispatch, navigate]);
 
     return (
         <section className={styles.section}>

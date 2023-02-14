@@ -1,46 +1,48 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadIngredientsAction } from '../../services/actions/load-ingredients';
-import { getData } from '../../services/selectors';
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
+import { URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
+    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY } from '../../utils/routes';
 
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-
-const MESSAGE_LOADING = "Подождите, идет загрузка...";
-const MESSAGE_ERROR = "Возникла ошибка при получении данных";
+import { MainPage, IngredientPage, 
+    Profile, ProfileEdit, ProfileOrders, ProfileLogout,
+    Login, Register, ResetPassword, ForgotPassword, NotFound404 
+} from '../../pages';
+import ProtectedRoute from '../protected-route';
 
 function App() {
-    const { data, dataLoading, dataHasErrors } = useSelector(getData);
     const dispatch = useDispatch();
-
+    const location = useLocation();
+    const stateLocation = location.state && location.state.location;
+    const item = location.state && location.state.item;
     useEffect(() => {
-        dispatch(loadIngredientsAction());
-    }, [dispatch]);
+        dispatch({type: SET_DISPLAYED_INGREDIENT, item: item});
+    }, [dispatch, item]);
 
     return (
-        <>
-            {(dataLoading || dataHasErrors) ? (
-                <main className={styles["wait-container"]}>
-                    <p className="text text_type_main-large">
-                        {dataLoading ? MESSAGE_LOADING : dataHasErrors ? MESSAGE_ERROR : undefined}
-                    </p>
-                </main>
-            ) : data && data.length > 0 ? (
-                <>
-                    <AppHeader />
-                    <main className={styles.main}>
-                        <div className={styles.inner}>
-                            <BurgerIngredients />
-                            <BurgerConstructor />
-                        </div>
-                    </main>
-                </>)
-                :
-                undefined
-            }
-        </>
+        <div className={styles.container}>
+            <AppHeader />
+            <div className={styles.main}>
+                <Routes location={stateLocation || location}>
+                    <Route path={URL_ROOT} element={<MainPage />} />
+                    <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
+                    <Route path={URL_LOGIN} element={<Login />} />
+                    <Route path={URL_REGISTER} element={<Register />} />
+                    <Route path={URL_RESET_PASSWORD} element={<ResetPassword />} />
+                    <Route path={URL_FORGOT_PASSWORD} element={<ForgotPassword />} />
+                    <Route path={URL_PROFILE} element={<ProtectedRoute element={<Profile />} />}>
+                        <Route index element={<ProfileEdit />} />
+                        <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />
+                        <Route path={URL_PROFILE_LOGOUT} element={<ProfileLogout />} />
+                        <Route path={URL_ANY} element={<NotFound404 />} />
+                    </Route>
+                    <Route path={URL_ANY} element={<NotFound404 />} />
+                </Routes>
+            </div>
+        </div >
     );
 }
 

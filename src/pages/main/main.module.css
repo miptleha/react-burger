@@ -1,0 +1,19 @@
+.main {
+    margin: 0 auto;
+    width: var(--width-outer);
+}
+
+.wait-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.inner {
+    margin-right: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
