@@ -4,7 +4,7 @@ import styles from './order-details.module.css';
 
 type TProps = {
     number: string;
-}
+};
 
 const OrderDetails: FC<TProps> = ({ number }) => {
     return (

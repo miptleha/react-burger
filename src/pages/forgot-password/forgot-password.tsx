@@ -11,8 +11,8 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import Loader from '../../components/loader/loader';
 
 type TState = TForgotPassword & {
-    wasSubmit?: boolean
-}
+    wasSubmit?: boolean;
+};
 
 function ForgotPassword() {
     const dispatch = useDispatch();

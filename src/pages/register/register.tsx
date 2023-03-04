@@ -12,7 +12,7 @@ import { TRegisterUser } from '../../utils/api';
 
 type TState = TRegisterUser & {
     wasSubmit?: boolean;
-}
+};
 
 function Register() {
     const dispatch = useDispatch();

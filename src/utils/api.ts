@@ -13,8 +13,8 @@ const API_FORGOT_PASSWORD = "/api/password-reset";
 const API_RESET_PASSWORD = "/api/password-reset/reset";
 
 type TResponse<T> = Response & {
-    json(): Promise<T>
-}
+    json(): Promise<T>;
+};
   
 function request(url: string, options?: any) {
     return fetch(url, options).then(checkResponse);
@@ -62,7 +62,7 @@ export type TRegisterUser = {
     name: string;
     email: string;
     password: string;
-}
+};
 
 export function registerUser(user: TRegisterUser) {
     return request(`${DOMAIN}${API_REGISTER}`, {
@@ -77,7 +77,7 @@ export function registerUser(user: TRegisterUser) {
 export type TLoginUser = {
     email: string;
     password: string;
-}
+};
 
 export function loginUser(user: TLoginUser) {
     return request(`${DOMAIN}${API_LOGIN}`, {
@@ -103,7 +103,7 @@ export function logoutUser() {
 
 export type TForgotPassword = {
     email: string;
-}
+};
 
 export function forgotPassword(form: TForgotPassword) {
     return request(`${DOMAIN}${API_FORGOT_PASSWORD}`, {
@@ -118,7 +118,7 @@ export function forgotPassword(form: TForgotPassword) {
 export type TResetPassword = {
     password: string;
     token: string;
-}
+};
 
 export function resetPassword(form: TResetPassword) {
     return request(`${DOMAIN}${API_RESET_PASSWORD}`, {
@@ -156,7 +156,7 @@ export type TPatchUser = {
     name: string;
     email: string;
     password: string;
-}
+};
 
 export function patchUser(user: TPatchUser) {
     return requestWithRefresh(`${DOMAIN}${API_USER}`, {

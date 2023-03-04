@@ -7,8 +7,8 @@ import { URL_LOGIN } from '../utils/routes';
 import Loader from './loader/loader';
 
 type TProps = {
-    element: React.ReactElement
-}
+    element: React.ReactElement;
+};
 
 const ProtectedRoute: FC<TProps> = ({ element }) => {
     const { requestStart, requestError, user } = useSelector(getAuth);

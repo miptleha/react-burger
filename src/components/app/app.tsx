@@ -13,7 +13,7 @@ import { MainPage, IngredientPage,
 } from '../../pages';
 import ProtectedRoute from '../protected-route';
 
-function App()  {
+function App() {
     const dispatch = useDispatch();
     const location = useLocation();
     const stateLocation = location.state && location.state.location;

@@ -9,7 +9,7 @@ import styles from './ingredient-details.module.css';
 import { TIngredient } from '../../utils/types';
 
 type TProps = {
-    item?: TIngredient
+    item?: TIngredient;
 }
 
 const IngredientDetails: FC<TProps> = ({ item }) => {

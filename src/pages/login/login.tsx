@@ -12,7 +12,7 @@ import Loader from '../../components/loader/loader';
 
 type TState = TLoginUser & {
     wasSubmit?: boolean;
-}
+};
 
 function Login() {
     const dispatch = useDispatch();

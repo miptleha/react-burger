@@ -4,10 +4,10 @@ import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/d
 import styles from './icon-link.module.css';
 
 type TProps = {
-    icon: ({ type }: TIconProps) => JSX.Element,
+    icon: ({ type }: TIconProps) => JSX.Element;
     children: string,
     href: string
-}
+};
 
 const IconLink: FC<TProps> = ({ icon: Icon, children, href }) => {
     return (

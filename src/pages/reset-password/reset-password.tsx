@@ -12,7 +12,7 @@ import Loader from '../../components/loader/loader';
 
 type TState = TResetPassword & {
     wasSubmit?: boolean;
-}
+};
 
 function ResetPassword() {
     const dispatch = useDispatch();
