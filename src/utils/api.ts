@@ -1,4 +1,5 @@
 import { setCookie, getCookie } from "./cookie";
+import { TIngredientConstructor } from "./types";
 
 const DOMAIN = "https://norma.nomoreparties.space";
 const API_LOAD = "/api/ingredients";
@@ -11,14 +12,19 @@ const API_USER = "/api/auth/user";
 const API_FORGOT_PASSWORD = "/api/password-reset";
 const API_RESET_PASSWORD = "/api/password-reset/reset";
 
-function request(url, options) {
+type TResponse<T> = Response & {
+    json(): Promise<T>
+}
+  
+function request(url: string, options?: any) {
     return fetch(url, options).then(checkResponse);
 }
 
-function checkResponse(res) {
+function checkResponse<T>(res: TResponse<T>) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
-function requestWithRefresh(url, options) {
+
+function requestWithRefresh(url: string, options: any) {
     return fetch(url, options)
         .then(checkResponse)
         .catch(err => {
@@ -42,7 +48,7 @@ export function dataLoad() {
     return request(`${DOMAIN}${API_LOAD}`);
 }
 
-export function orderCreate(ingredients) {
+export function orderCreate(ingredients: Array<TIngredientConstructor>) {
     return request(`${DOMAIN}${API_ORDER}`, {
         method: "POST",
         headers: {
@@ -52,7 +58,13 @@ export function orderCreate(ingredients) {
     });
 }
 
-export function registerUser(user) {
+export type TRegisterUser = {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export function registerUser(user: TRegisterUser) {
     return request(`${DOMAIN}${API_REGISTER}`, {
         method: "POST",
         headers: {
@@ -62,7 +74,12 @@ export function registerUser(user) {
     });
 }
 
-export function loginUser(user) {
+export type TLoginUser = {
+    email: string;
+    password: string;
+}
+
+export function loginUser(user: TLoginUser) {
     return request(`${DOMAIN}${API_LOGIN}`, {
         method: "POST",
         headers: {
@@ -84,7 +101,11 @@ export function logoutUser() {
     });
 }
 
-export function forgotPassword(form) {
+export type TForgotPassword = {
+    email: string;
+}
+
+export function forgotPassword(form: TForgotPassword) {
     return request(`${DOMAIN}${API_FORGOT_PASSWORD}`, {
         method: "POST",
         headers: {
@@ -94,7 +115,12 @@ export function forgotPassword(form) {
     });
 }
 
-export function resetPassword(form) {
+export type TResetPassword = {
+    password: string;
+    token: string;
+}
+
+export function resetPassword(form: TResetPassword) {
     return request(`${DOMAIN}${API_RESET_PASSWORD}`, {
         method: "POST",
         headers: {
@@ -126,7 +152,13 @@ export function getUser() {
     });
 }
 
-export function patchUser(user) {
+export type TPatchUser = {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export function patchUser(user: TPatchUser) {
     return requestWithRefresh(`${DOMAIN}${API_USER}`, {
         method: "PATCH",
         headers: {

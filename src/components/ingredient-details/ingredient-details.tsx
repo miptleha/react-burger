@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
@@ -6,9 +6,13 @@ import { loadIngredientsAction } from '../../services/actions/load-ingredients';
 import { MESSAGE_ERROR, MESSAGE_LOADING } from '../../utils/message';
 
 import styles from './ingredient-details.module.css';
-import { dataPropTypes } from '../../utils/dataPropTypes';
+import { TIngredient } from '../../utils/types';
 
-function IngredientDetails({ item }) {
+type TProps = {
+    item?: TIngredient
+}
+
+const IngredientDetails: FC<TProps> = ({ item }) => {
     const dispatch = useDispatch();
     const params = useParams();
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
@@ -16,13 +20,13 @@ function IngredientDetails({ item }) {
         if (item) {
             return item;
         } else if (params.id && data && data.length > 0) {
-            return data.find(i => i._id === params.id);
+            return data.find((i: TIngredient) => i._id === params.id);
         }
         return null;
     }, [item, params.id, data]);
     
     if (!item1 && !dataLoading && !dataHasErrors && params && params.id) {
-        dispatch(loadIngredientsAction());
+        dispatch(loadIngredientsAction() as any);
     }
 
     return item1 ? (
@@ -53,10 +57,6 @@ function IngredientDetails({ item }) {
         {dataLoading ? MESSAGE_LOADING : dataHasErrors ? MESSAGE_ERROR : undefined}
     </p>
     );
-}
-
-IngredientDetails.propTypes = {
-    item: dataPropTypes
 }
 
 export default IngredientDetails;

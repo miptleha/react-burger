@@ -15,16 +15,16 @@ function MainPage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(loadIngredientsAction());
+        dispatch(loadIngredientsAction() as any);
     }, [dispatch]);
 
 
     return (
-        (dataLoading || dataHasErrors) ? (
+        (dataLoading || dataHasErrors || !data || data.length === 0) ? (
             <main className={styles["wait-container"]}>
                 {dataLoading ? (<Loader />) : dataHasErrors ? (<p className="text text_type_main-medium">{MESSAGE_ERROR}</p>) : undefined}
             </main>
-        ) : data && data.length > 0 ? (
+        ) : (
             <>
                 <main className={styles.main}>
                     <div className={styles.inner}>
@@ -32,10 +32,9 @@ function MainPage() {
                         <BurgerConstructor />
                     </div>
                 </main>
-            </>)
-            :
-            undefined
-    )
+            </>
+        )
+    );
 }
 
 export default MainPage;

@@ -5,19 +5,24 @@ import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
 import { authResetPasswordAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
 import { URL_FORGOT_PASSWORD, URL_LOGIN, URL_ROOT } from '../../utils/routes';
+import { TResetPassword } from '../../utils/api';
 
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../../components/loader/loader';
+
+type TState = TResetPassword & {
+    wasSubmit?: boolean;
+}
 
 function ResetPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const submitCb = useCallback((state) => {
-        dispatch(authResetPasswordAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authResetPasswordAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         password: "",
         token: ""
     }, submitCb);

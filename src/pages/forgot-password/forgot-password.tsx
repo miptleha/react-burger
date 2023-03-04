@@ -5,23 +5,28 @@ import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
 import { authGetUserAction, authForgotPasswordAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
 import { URL_LOGIN, URL_RESET_PASSWORD, URL_ROOT } from '../../utils/routes';
+import { TForgotPassword } from '../../utils/api';
 
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../../components/loader/loader';
+
+type TState = TForgotPassword & {
+    wasSubmit?: boolean
+}
 
 function ForgotPassword() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authForgotPasswordAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authForgotPasswordAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         email: ""
     }, submitCb);
 

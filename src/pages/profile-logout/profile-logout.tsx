@@ -15,12 +15,12 @@ function ProfileLogout() {
 
     useEffect(() => {
         if (userLoggedIn) {
-            dispatch(authLogoutAction());
+            dispatch(authLogoutAction() as any);
             setStarted(true);
         }
     }, [userLoggedIn, dispatch]);
 
-    const [started, setStarted] = useState(false);
+    const [started, setStarted] = useState<boolean>(false);
 
     useEffect(() => {
         if (started && requestError) {

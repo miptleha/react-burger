@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import propTypes from 'prop-types';
 import { getAuth } from '../services/selectors';
 import { authGetUserAction } from '../services/actions/auth';
 import { URL_LOGIN } from '../utils/routes';
 import Loader from './loader/loader';
 
-function ProtectedRoute({ element }) {
+type TProps = {
+    element: React.ReactElement
+}
+
+const ProtectedRoute: FC<TProps> = ({ element }) => {
     const { requestStart, requestError, user } = useSelector(getAuth);
 
     const navigate = useNavigate();
@@ -16,7 +19,7 @@ function ProtectedRoute({ element }) {
 
     useEffect(() => {
         if (user.name === "") {
-            dispatch(authGetUserAction());
+            dispatch(authGetUserAction() as any);
         }
     }, [dispatch, user.name]);
 
@@ -28,10 +31,6 @@ function ProtectedRoute({ element }) {
     }, [requestError, navigate, location]);
 
     return requestStart || user.name === "" ? <Loader /> : element;
-}
-
-ProtectedRoute.propTypes = {
-    element: propTypes.element.isRequired
 }
 
 export default ProtectedRoute;

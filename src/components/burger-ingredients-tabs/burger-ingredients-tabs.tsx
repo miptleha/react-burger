@@ -1,5 +1,5 @@
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { SET_TAB } from '../../services/actions/tab-info';
 import { getTab } from '../../services/selectors';
 
@@ -7,11 +7,15 @@ import styles from './burger-ingredients-tabs.module.css';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredientsTabs({ tabChange }) {
+type TProps = {
+    tabChange: (tab: string) => void;
+};
+
+const BurgerIngredientsTabs: FC<TProps> = ({ tabChange }) => {
     const tab = useSelector(getTab);
     const dispatch = useDispatch();
 
-    function change(type) {
+    function change(type: string) {
         dispatch({ type: SET_TAB, tab: type });
         tabChange(type);
     }
@@ -24,9 +28,5 @@ function BurgerIngredientsTabs({ tabChange }) {
         </div>
     );
 }
-
-BurgerIngredientsTabs.propTypes = {
-    tabChange: PropTypes.func.isRequired
-};
 
 export default BurgerIngredientsTabs;
