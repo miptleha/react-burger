@@ -100,7 +100,7 @@ export function authReducer(state = initialState, action) {
         case AUTH_PATCH_USER_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_PATCH_USER_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, user: { name: action.user.name, email: action.user.email } };
         case AUTH_PATCH_USER_ERROR:
             return { ...state, requestStart: false, requestError: action.message, requestSuccess: false };
 

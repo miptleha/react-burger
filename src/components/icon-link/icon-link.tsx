@@ -1,8 +1,15 @@
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 import styles from './icon-link.module.css';
 
-function IconLink({ icon: Icon, children, href }) {
+type TProps = {
+    icon: ({ type }: TIconProps) => JSX.Element;
+    children: string,
+    href: string
+};
+
+const IconLink: FC<TProps> = ({ icon: Icon, children, href }) => {
     return (
         <NavLink to={href} className={`${styles.link} pt-4 pb-4 pr-5 pl-5`}>
             {({ isActive }) => (
@@ -16,11 +23,5 @@ function IconLink({ icon: Icon, children, href }) {
         </NavLink>
     );
 }
-
-IconLink.propTypes = {
-    icon: PropTypes.elementType.isRequired,
-    children: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired
-};
 
 export default IconLink;

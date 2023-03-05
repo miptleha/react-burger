@@ -1,16 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
-import propTypes from 'prop-types';
-import { dataPropTypes } from '../../utils/dataPropTypes';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { URL_INGREDIENTS } from '../../utils/routes';
 
 import styles from './burger-ingredients-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { TIngredient } from '../../utils/types';
 
-function BurgerIngredientsItem({ item, count }) {
+type TProps = {
+    item: TIngredient;
+    count: number;
+};
+
+const BurgerIngredientsItem: FC<TProps> = ({ item, count }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,11 +40,6 @@ function BurgerIngredientsItem({ item, count }) {
             {count > 0 && <Counter count={count} size="default" extraClass={styles.count} />}
         </li>
     );
-}
-
-BurgerIngredientsItem.propTypes = {
-    item: dataPropTypes.isRequired,
-    count: propTypes.number
 }
 
 export default React.memo(BurgerIngredientsItem);

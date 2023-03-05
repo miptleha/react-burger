@@ -12,10 +12,16 @@ import { MainPage, IngredientPage,
     Login, Register, ResetPassword, ForgotPassword, NotFound404 
 } from '../../pages';
 import ProtectedRoute from '../protected-route';
+import { loadIngredientsAction } from '../../services/actions/load-ingredients';
 
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
+
+    useEffect(() => {
+        dispatch(loadIngredientsAction() as any);
+    }, [dispatch]);
+
     const stateLocation = location.state && location.state.location;
     const item = location.state && location.state.item;
     useEffect(() => {
@@ -30,9 +36,9 @@ function App() {
                     <Route path={URL_ROOT} element={<MainPage />} />
                     <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
                     <Route path={URL_LOGIN} element={<Login />} />
-                    <Route path={URL_REGISTER} element={<Register />} />
-                    <Route path={URL_RESET_PASSWORD} element={<ResetPassword />} />
-                    <Route path={URL_FORGOT_PASSWORD} element={<ForgotPassword />} />
+                    <Route path={URL_REGISTER} element={<ProtectedRoute anonymous element={<Register />} />} />
+                    <Route path={URL_RESET_PASSWORD} element={<ProtectedRoute anonymous element={<ResetPassword />} />} />
+                    <Route path={URL_FORGOT_PASSWORD} element={<ProtectedRoute anonymous element={<ForgotPassword />} />} />
                     <Route path={URL_PROFILE} element={<ProtectedRoute element={<Profile />} />}>
                         <Route index element={<ProfileEdit />} />
                         <Route path={URL_PROFILE_ORDERS} element={<ProfileOrders />} />

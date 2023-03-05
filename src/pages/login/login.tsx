@@ -5,9 +5,14 @@ import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
 import { authLoginAction, authGetUserAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
 import { URL_FORGOT_PASSWORD, URL_PROFILE, URL_PROFILE_LOGOUT, URL_REGISTER, URL_ROOT } from '../../utils/routes';
+import { TLoginUser } from '../../utils/api';
 
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../../components/loader/loader';
+
+type TState = TLoginUser & {
+    wasSubmit?: boolean;
+};
 
 function Login() {
     const dispatch = useDispatch();
@@ -15,14 +20,14 @@ function Login() {
     const location = useLocation();
 
     useEffect(() => {
-        dispatch(authGetUserAction());
+        dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
-    const submitCb = useCallback((state) => {
-        dispatch(authLoginAction(state));
+    const submitCb = useCallback((state: TState) => {
+        dispatch(authLoginAction(state) as any);
     }, [dispatch]);
 
-    const { state, onChange, onSubmit } = useForm({
+    const { state, onChange, onSubmit } = useForm<TState>({
         email: "",
         password: ""
     }, submitCb);

@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import img from '../../images/done.png';
 import styles from './order-details.module.css';
 
-function OrderDetails({ number }) {
+type TProps = {
+    number: string;
+};
+
+const OrderDetails: FC<TProps> = ({ number }) => {
     return (
         <>
             <p className={`${styles["order-number"]} text text_type_digits-large mb-8 text-center`}>{number}</p>
@@ -12,10 +16,6 @@ function OrderDetails({ number }) {
             <p className={`${styles["last-p"]} text text_type_main-default text_color_inactive mb-30 text-center`}>Дождитесь готовности на орбитальной станции</p>
         </>
     );
-}
-
-OrderDetails.propTypes = {
-    number: PropTypes.number.isRequired
 }
 
 export default OrderDetails;

@@ -1,8 +1,9 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/burger-constructor';
 import { getIngredients } from '../../services/selectors';
+import { TIngredientConstructor } from '../../utils/types';
 
 import styles from './burger-constructor.module.css';
 import { BUN, SAUCE, MAIN } from '../../utils/dataNames';
@@ -10,7 +11,7 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorOrder from '../burger-constructor-order/burger-constructor-order';
 import BurgerConstructorIngredient from '../burger-constructor-ingredient/burger-constructor-ingredient';
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector(getIngredients);
 
@@ -19,7 +20,7 @@ function BurgerConstructor() {
         if (bun) {
             sum += bun.price * 2;
         }
-        sum += ingredients.reduce((sum, item) => sum += item.price, 0);
+        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum += item.price, 0);
         dispatch({ type: SET_SUM, sum });
     }, [bun, ingredients, dispatch]);
 
@@ -44,7 +45,7 @@ function BurgerConstructor() {
         }
     });
 
-    const deleteIngredient = useCallback((index) => {
+    const deleteIngredient = useCallback((index: number) => {
         dispatch({ type: DELETE_INGREDIENT, index: index })
     }, [dispatch]);
 
@@ -67,7 +68,7 @@ function BurgerConstructor() {
                     }
                 </div>
                 <ul className={`${styles.scroll} mt-4 mb-4`} ref={dropTargetIngredient}>
-                    {ingredients && ingredients.length > 0 ? ingredients.map((item, index) => (
+                    {ingredients && ingredients.length > 0 ? ingredients.map((item: TIngredientConstructor, index: number) => (
                         <BurgerConstructorIngredient key={item.id} item={item} index={index} onDelete={deleteIngredient} />
                     )) :
                         (<div className={`${styles["empty-element"]} constructor-element ml-8`}>

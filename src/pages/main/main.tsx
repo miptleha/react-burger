@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadIngredientsAction } from '../../services/actions/load-ingredients';
+import { useSelector } from 'react-redux';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR } from '../../utils/message';
 
@@ -12,30 +10,21 @@ import Loader from '../../components/loader/loader';
 function MainPage() {
 
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(loadIngredientsAction());
-    }, [dispatch]);
-
 
     return (
-        (dataLoading || dataHasErrors) ? (
+        (dataLoading || dataHasErrors || !data || data.length === 0) ? (
             <main className={styles["wait-container"]}>
                 {dataLoading ? (<Loader />) : dataHasErrors ? (<p className="text text_type_main-medium">{MESSAGE_ERROR}</p>) : undefined}
             </main>
-        ) : data && data.length > 0 ? (
-            <>
-                <main className={styles.main}>
-                    <div className={styles.inner}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </div>
-                </main>
-            </>)
-            :
-            undefined
-    )
+        ) : (
+            <main className={styles.main}>
+                <div className={styles.inner}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </div>
+            </main>
+        )
+    );
 }
 
 export default MainPage;
