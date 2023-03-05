@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
-import { authPatchUserAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
+import { authGetUserAction, authPatchUserAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
 import { TPatchUser } from '../../utils/api';
 
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -28,6 +28,11 @@ function ProfileEdit() {
         email: "",
         password: ""
     }, submitCb);
+
+    useEffect(() => {
+        dispatch(authGetUserAction() as any);
+    }, [dispatch]);
+
 
     const [nameDisabled, setNameDisabled] = useState<boolean>(true);
 

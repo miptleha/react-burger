@@ -1,8 +1,7 @@
 import { useMemo, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
-import { loadIngredientsAction } from '../../services/actions/load-ingredients';
 import { MESSAGE_ERROR, MESSAGE_LOADING } from '../../utils/message';
 
 import styles from './ingredient-details.module.css';
@@ -13,7 +12,6 @@ type TProps = {
 }
 
 const IngredientDetails: FC<TProps> = ({ item }) => {
-    const dispatch = useDispatch();
     const params = useParams();
     const { data, dataLoading, dataHasErrors } = useSelector(getData);
     let item1 = useMemo(() => {
@@ -25,9 +23,6 @@ const IngredientDetails: FC<TProps> = ({ item }) => {
         return null;
     }, [item, params.id, data]);
     
-    if (!item1 && !dataLoading && !dataHasErrors && params && params.id) {
-        dispatch(loadIngredientsAction() as any);
-    }
 
     return item1 ? (
         <>

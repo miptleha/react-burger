@@ -16,6 +16,7 @@ npm start
 ```
 git checkout sprint-4/step-1
 ```
+[Замечания](https://github.com/miptleha/react-burger/pull/10) по доработкам.
 
 ## Спринт 3
 Сделать странички логина, регистрации, восстановления пароля, профиля.   

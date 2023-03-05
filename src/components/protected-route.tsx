@@ -1,36 +1,32 @@
-import { useEffect, FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, Navigate } from 'react-router-dom';
 import { getAuth } from '../services/selectors';
-import { authGetUserAction } from '../services/actions/auth';
-import { URL_LOGIN } from '../utils/routes';
-import Loader from './loader/loader';
 
 type TProps = {
     element: React.ReactElement;
+    anonymous?: boolean;
 };
 
-const ProtectedRoute: FC<TProps> = ({ element }) => {
-    const { requestStart, requestError, user } = useSelector(getAuth);
+const ProtectedRoute: FC<TProps> = ({ element, anonymous }) => {
+    const { userLoggedIn } = useSelector(getAuth);
 
-    const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (user.name === "") {
-            dispatch(authGetUserAction() as any);
-        }
-    }, [dispatch, user.name]);
-
-    useEffect(() => {
-        if (requestError) {
-            navigate(URL_LOGIN, { replace: true, state: { from: location } });
-            return undefined;
-        }
-    }, [requestError, navigate, location]);
-
-    return requestStart || user.name === "" ? <Loader /> : element;
+    const from = location.state?.from || '/';
+    // Если разрешен неавторизованный доступ, а пользователь авторизован...
+    if (anonymous && userLoggedIn) {
+      // ...то отправляем его на предыдущую страницу
+      return <Navigate to={ from } />;
+    }
+  
+    // Если требуется авторизация, а пользователь не авторизован...
+    if (!anonymous && !userLoggedIn) {
+      // ...то отправляем его на страницу логин
+      return <Navigate to="/login" state={{ from: location}}/>;
+    }
+  
+    // Если все ок, то рендерим внутреннее содержимое
+    return element;
 }
 
 export default ProtectedRoute;
