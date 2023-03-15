@@ -30,8 +30,6 @@ import {
     AUTH_PATCH_USER_START,
     AUTH_PATCH_USER_SUCCESS,
     AUTH_PATCH_USER_ERROR,
-
-    AUTH_CLEAR_ERRORS
 } from '../actions/auth';
 
 const initialState = {
@@ -39,10 +37,7 @@ const initialState = {
     requestError: null,
     requestSuccess: false,
     userLoggedIn: false,
-    user: {
-        name: "",
-        email: ""
-    },
+    user: null,
     forgotPassword: false
 };
 
@@ -51,30 +46,30 @@ export function authReducer(state = initialState, action) {
         case AUTH_REGISTER_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_REGISTER_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true, user: action.user };
         case AUTH_REGISTER_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false, user: null };
 
         case AUTH_LOGIN_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_LOGIN_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true, user: action.user };
         case AUTH_LOGIN_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false, user: null };
 
         case AUTH_LOGOUT_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_LOGOUT_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: false, user: null };
         case AUTH_LOGOUT_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false, user: null };
 
         case AUTH_TOKEN_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_TOKEN_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true, user: action.user };
         case AUTH_TOKEN_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false, user: null };
 
         case AUTH_FORGOT_PASSWORD_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false, forgotPassword: false };
@@ -91,21 +86,18 @@ export function authReducer(state = initialState, action) {
             return { ...state, requestStart: false, requestError: action.message, requestSuccess: false };
 
         case AUTH_GET_USER_START:
-            return { ...state, requestStart: true, requestError: null, requestSuccess: false, user: initialState.user };
+            return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_GET_USER_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, user: { name: action.user.name, email: action.user.email }, userLoggedIn: true };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, userLoggedIn: true, user: action.user };
         case AUTH_GET_USER_ERROR:
-            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, user: initialState.user, userLoggedIn: false };
+            return { ...state, requestStart: false, requestError: action.message, requestSuccess: false, userLoggedIn: false, user: null };
 
         case AUTH_PATCH_USER_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };
         case AUTH_PATCH_USER_SUCCESS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: true, user: { name: action.user.name, email: action.user.email } };
+            return { ...state, requestStart: false, requestError: null, requestSuccess: true, user: action.user };
         case AUTH_PATCH_USER_ERROR:
             return { ...state, requestStart: false, requestError: action.message, requestSuccess: false };
-
-        case AUTH_CLEAR_ERRORS:
-            return { ...state, requestStart: false, requestError: null, requestSuccess: false };
 
         default:
             return state;

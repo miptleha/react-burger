@@ -13,6 +13,7 @@ import { MainPage, IngredientPage,
 } from '../../pages';
 import ProtectedRoute from '../protected-route';
 import { loadIngredientsAction } from '../../services/actions/load-ingredients';
+import { authCheckUserAction } from '../../services/actions/auth';
 
 function App() {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
 
     useEffect(() => {
         dispatch(loadIngredientsAction() as any);
+        dispatch(authCheckUserAction() as any);
     }, [dispatch]);
 
     const stateLocation = location.state && location.state.location;

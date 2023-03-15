@@ -59,3 +59,8 @@
 .text_color_dark {
     color: #404052;
 }
+
+.error-text {
+    color: var(--colors-interface-error);
+    max-width: 500px;
+}
