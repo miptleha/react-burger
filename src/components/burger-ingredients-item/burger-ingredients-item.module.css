@@ -35,3 +35,8 @@
     background-color: #4C4CFF;
     border-radius: 16px;
 }
+
+.link {
+    text-decoration: none;
+    color: #F2F2F3;
+}

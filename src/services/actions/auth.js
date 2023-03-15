@@ -1,5 +1,5 @@
 import { registerUser, loginUser, logoutUser, refreshToken, forgotPassword, resetPassword, getUser, patchUser } from "../../utils/api";
-import { setCookie, deleteCookie } from "../../utils/cookie";
+import { setCookie, deleteCookie, getCookie } from "../../utils/cookie";
 
 export const AUTH_REGISTER_START = "AUTH_REGISTER_START";
 export const AUTH_REGISTER_SUCCESS = "AUTH_REGISTER_SUCCESS";
@@ -33,12 +33,10 @@ export const AUTH_PATCH_USER_START = "AUTH_PATCH_USER_START";
 export const AUTH_PATCH_USER_SUCCESS = "AUTH_PATCH_USER_SUCCESS";
 export const AUTH_PATCH_USER_ERROR = "AUTH_PATCH_USER_ERROR";
 
-export const AUTH_CLEAR_ERRORS = "AUTH_CLEAR_ERRORS";
-
 export function authRegisterAction(form) {
     return function (dispatch) {
         dispatch({ type: AUTH_REGISTER_START });
-        registerUser(form)
+        return registerUser(form)
             .then(result => {
                 const accessToken = result.accessToken.split("Bearer ")[1];
                 const refreshToken = result.refreshToken;
@@ -58,7 +56,7 @@ export function authRegisterAction(form) {
 export function authLoginAction(form) {
     return function (dispatch) {
         dispatch({ type: AUTH_LOGIN_START });
-        loginUser(form)
+        return loginUser(form)
             .then(result => {
                 const accessToken = result.accessToken.split("Bearer ")[1];
                 const refreshToken = result.refreshToken;
@@ -78,14 +76,17 @@ export function authLoginAction(form) {
 export function authLogoutAction() {
     return function (dispatch) {
         dispatch({ type: AUTH_LOGOUT_START });
-        localStorage.removeItem("refreshToken");
-        deleteCookie("accessToken");
-        logoutUser()
+        return logoutUser()
             .then(result => {
                 dispatch({ type: AUTH_LOGOUT_SUCCESS });
             })
             .catch(err => {
                 dispatch({ type: AUTH_LOGOUT_ERROR, message: err.message });
+            })
+            .finally(() => {
+                //и в случае успеха, и в случае ошибки (пользователь вышел в другой вкладке)
+                localStorage.removeItem("refreshToken");
+                deleteCookie("accessToken");
             });
     }
 }
@@ -93,7 +94,7 @@ export function authLogoutAction() {
 export function authTokenAction() {
     return function (dispatch) {
         dispatch({ type: AUTH_TOKEN_START });
-        refreshToken()
+        return refreshToken()
             .then(result => {
                 const accessToken = result.accessToken.split("Bearer ")[1];
                 const refreshToken = result.refreshToken;
@@ -113,7 +114,7 @@ export function authTokenAction() {
 export function authForgotPasswordAction(form) {
     return function (dispatch) {
         dispatch({ type: AUTH_FORGOT_PASSWORD_START });
-        forgotPassword(form)
+        return forgotPassword(form)
             .then(result => {
                 dispatch({ type: AUTH_FORGOT_PASSWORD_SUCCESS });
             })
@@ -126,7 +127,7 @@ export function authForgotPasswordAction(form) {
 export function authResetPasswordAction(form) {
     return function (dispatch) {
         dispatch({ type: AUTH_RESET_PASSWORD_START });
-        resetPassword(form)
+        return resetPassword(form)
             .then(result => {
                 dispatch({ type: AUTH_RESET_PASSWORD_SUCCESS });
             })
@@ -136,10 +137,18 @@ export function authResetPasswordAction(form) {
     }
 }
 
+export function authCheckUserAction() {
+    return function (dispatch) {
+        if (getCookie("accessToken")) {
+            dispatch(authGetUserAction())
+        }
+    }
+}
+
 export function authGetUserAction() {
     return function (dispatch) {
         dispatch({ type: AUTH_GET_USER_START });
-        getUser()
+        return getUser()
             .then(result => {
                 dispatch({ type: AUTH_GET_USER_SUCCESS, user: result.user });
             })
@@ -152,7 +161,7 @@ export function authGetUserAction() {
 export function authPatchUserAction(form) {
     return function (dispatch) {
         dispatch({ type: AUTH_PATCH_USER_START });
-        patchUser(form)
+        return patchUser(form)
             .then(result => {
                 dispatch({ type: AUTH_PATCH_USER_SUCCESS, user: result.user });
             })

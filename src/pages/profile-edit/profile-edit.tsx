@@ -1,24 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
-import { authGetUserAction, authPatchUserAction, AUTH_CLEAR_ERRORS } from '../../services/actions/auth';
-import { TPatchUser } from '../../utils/api';
+import { authGetUserAction, authPatchUserAction } from '../../services/actions/auth';
 
 import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Loader from '../../components/loader/loader';
+import { TPatchUser, TSubmit } from '../../utils/types';
 
-type TState = TPatchUser & {
-    wasSubmit?: boolean;
-};
+type TState = TPatchUser & TSubmit;
 
 function ProfileEdit() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const submitCb = useCallback((state: TState) => {
         dispatch(authPatchUserAction(state) as any);
+        setNameDisabled(true);
     }, [dispatch]);
 
     const { requestStart, requestError, requestSuccess, user } = useSelector(getAuth);
@@ -30,27 +27,26 @@ function ProfileEdit() {
     }, submitCb);
 
     useEffect(() => {
+        //при открытии страницы еще раз запрашиваем данные пользователя (если параллельно в другой вкладке вышли или поменяли пользователя)
         dispatch(authGetUserAction() as any);
     }, [dispatch]);
 
+    useEffect(() => {
+        //получили данные пользователя, заполняем форму
+        if (requestSuccess) {
+            setState({ name: user?.name, email: user?.email, password: "" });
+        }
+    }, [setState, user, requestSuccess]);
 
     const [nameDisabled, setNameDisabled] = useState<boolean>(true);
 
-    const valueChange = (user.name !== "" && (state.name !== user.name || state.email !== user.email || state.password.length > 0));
+    const valueChange = (state.name !== user?.name || state.email !== user?.email || state.password.length > 0);
 
     const onReset = useCallback<React.FormEventHandler>((e: React.FormEvent) => {
         e.preventDefault();
-        setState({ name: user.name, email: user.email, password: "" });
+        setState({ name: user?.name, email: user?.email, password: "" });
+        setNameDisabled(true);
     }, [setState, user]);
-
-    useEffect(() => {
-        if (requestError) {
-            alert(`[Профиль сохранение] ${requestError}`);
-            dispatch({ type: AUTH_CLEAR_ERRORS });
-        } else {
-            setState({ name: user.name, email: user.email, password: "" });
-        }
-    }, [dispatch, setState, user, navigate, requestError, requestSuccess]);
 
     const nameRef = useRef<HTMLInputElement>(null);
 
@@ -66,6 +62,7 @@ function ProfileEdit() {
             <Input extraClass="mb-6" name="name" placeholder="Имя" value={state.name} onChange={onChange} icon="EditIcon" disabled={nameDisabled} onIconClick={nameClick} ref={nameRef} />
             <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} isIcon />
             <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} icon="EditIcon" />
+            {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
             {requestStart ? <Loader /> : valueChange ? (<div>
                 <Button type="primary" htmlType='reset'>Отмена</Button>
                 <Button type="primary" extraClass="ml-5" htmlType='submit'>Сохранить</Button>
