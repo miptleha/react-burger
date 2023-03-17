@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { useNavigate } from 'react-router';
 import { authLogoutAction } from '../../services/actions/auth';
 import { getAuth } from '../../services/selectors';
@@ -14,7 +14,7 @@ function ProfileLogout() {
 
     useEffect(() => {
         if (userLoggedIn) {
-            dispatch(authLogoutAction() as any);
+            dispatch(authLogoutAction());
         } else {
             navigate(URL_LOGIN, { replace: true });
         }

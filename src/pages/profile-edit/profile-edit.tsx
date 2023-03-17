@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
 import { authGetUserAction, authPatchUserAction } from '../../services/actions/auth';
@@ -14,7 +14,7 @@ function ProfileEdit() {
     const dispatch = useDispatch();
 
     const submitCb = useCallback((state: TState) => {
-        dispatch(authPatchUserAction(state) as any);
+        dispatch(authPatchUserAction(state));
         setNameDisabled(true);
     }, [dispatch]);
 
@@ -28,13 +28,13 @@ function ProfileEdit() {
 
     useEffect(() => {
         //при открытии страницы еще раз запрашиваем данные пользователя (если параллельно в другой вкладке вышли или поменяли пользователя)
-        dispatch(authGetUserAction() as any);
+        dispatch(authGetUserAction());
     }, [dispatch]);
 
     useEffect(() => {
         //получили данные пользователя, заполняем форму
         if (requestSuccess) {
-            setState({ name: user?.name, email: user?.email, password: "" });
+            setState({ name: user ? user.name : "", email: user ? user.email : "", password: "" });
         }
     }, [setState, user, requestSuccess]);
 
@@ -44,7 +44,7 @@ function ProfileEdit() {
 
     const onReset = useCallback<React.FormEventHandler>((e: React.FormEvent) => {
         e.preventDefault();
-        setState({ name: user?.name, email: user?.email, password: "" });
+        setState({ name: user ? user.name : "", email: user ? user.email : "", password: "" });
         setNameDisabled(true);
     }, [setState, user]);
 

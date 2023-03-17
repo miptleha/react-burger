@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/redux';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
@@ -20,8 +20,8 @@ function App() {
     const location = useLocation();
 
     useEffect(() => {
-        dispatch(loadIngredientsAction() as any);
-        dispatch(authCheckUserAction() as any);
+        dispatch(loadIngredientsAction());
+        dispatch(authCheckUserAction());
     }, [dispatch]);
 
     const stateLocation = location.state && location.state.location;

@@ -1,3 +1,4 @@
+import { TUser } from '../../utils/types';
 import {
     AUTH_REGISTER_START,
     AUTH_REGISTER_SUCCESS,
@@ -30,9 +31,20 @@ import {
     AUTH_PATCH_USER_START,
     AUTH_PATCH_USER_SUCCESS,
     AUTH_PATCH_USER_ERROR,
+
+    TAuthActions,
 } from '../actions/auth';
 
-const initialState = {
+type TAuthState = {
+    requestStart: boolean;
+    requestError: string | null;
+    requestSuccess: boolean;
+    userLoggedIn: boolean;
+    user: TUser | null;
+    forgotPassword: boolean;
+}
+
+const initialState: TAuthState = {
     requestStart: false,
     requestError: null,
     requestSuccess: false,
@@ -41,7 +53,7 @@ const initialState = {
     forgotPassword: false
 };
 
-export function authReducer(state = initialState, action) {
+export function authReducer(state = initialState, action: TAuthActions): TAuthState {
     switch (action.type) {
         case AUTH_REGISTER_START:
             return { ...state, requestStart: true, requestError: null, requestSuccess: false };

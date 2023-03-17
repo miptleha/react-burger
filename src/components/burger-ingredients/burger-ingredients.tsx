@@ -1,5 +1,5 @@
 import { useMemo, useRef, useCallback, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { useNavigate } from 'react-router';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';

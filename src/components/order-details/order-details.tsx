@@ -3,7 +3,7 @@ import img from '../../images/done.png';
 import styles from './order-details.module.css';
 
 type TProps = {
-    number: string;
+    number: number;
 };
 
 const OrderDetails: FC<TProps> = ({ number }) => {

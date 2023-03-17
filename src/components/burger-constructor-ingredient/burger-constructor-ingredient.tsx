@@ -1,5 +1,5 @@
 import { useRef, FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { SWAP_INGREDIENTS } from '../../services/actions/burger-constructor';
 
@@ -22,7 +22,7 @@ const BurgerConstructorIngredient: FC<TProps> = ({ item, index, onDelete }) => {
         item: {index}
     });
 
-    const [, drop] = useDrop<TIngredientConstructor>({
+    const [, drop] = useDrop<{index: number}>({
         accept: "sort",
         drop(item) {
             if (index !== item.index) {

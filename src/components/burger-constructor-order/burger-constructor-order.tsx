@@ -1,6 +1,6 @@
 import { useMemo, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/create-order';
 import { getAuth, getIngredients, getOrder } from '../../services/selectors';
 import { URL_LOGIN } from '../../utils/routes';
@@ -10,7 +10,7 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
-import { TIngredientConstructor } from '../../utils/types';
+import { TIngredient } from '../../utils/types';
 
 const BurgerConstructorOrder: FC = () => {
     const { bun, ingredients, sum } = useSelector(getIngredients);
@@ -34,11 +34,11 @@ const BurgerConstructorOrder: FC = () => {
         if (!userLoggedIn) {
             navigate(URL_LOGIN, { replace: true });
         } else {
-            const orderIngredients = [...ingredients];
+            const orderIngredients: Array<TIngredient> = [...ingredients];
             if (bun) {
                 orderIngredients.push(bun, bun);
             }
-            dispatch(createOrderAction(orderIngredients as Array<TIngredientConstructor>) as any);
+            dispatch(createOrderAction(orderIngredients));
         }
     }, [requestStart, userLoggedIn, navigate, ingredients, bun, dispatch]);
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
@@ -17,7 +17,7 @@ function ForgotPassword() {
     const navigate = useNavigate();
 
     const submitCb = useCallback((state: TState) => {
-        dispatch(authForgotPasswordAction(state) as any);
+        dispatch(authForgotPasswordAction(state));
     }, [dispatch]);
 
     const { state, onChange, onSubmit } = useForm<TState>({
