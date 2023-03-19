@@ -3,7 +3,6 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 16px;
-    height: 800px;
     overflow: auto;
     padding-right: 8px;
     width: 850px;

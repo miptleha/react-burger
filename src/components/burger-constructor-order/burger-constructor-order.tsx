@@ -36,7 +36,8 @@ const BurgerConstructorOrder: FC = () => {
         } else {
             const orderIngredients: Array<TIngredient> = [...ingredients];
             if (bun) {
-                orderIngredients.push(bun, bun);
+                orderIngredients.unshift(bun);
+                orderIngredients.push(bun);
             }
             dispatch(createOrderAction(orderIngredients));
         }

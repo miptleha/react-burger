@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 16px;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 250px);
   overflow: auto;
   padding-right: 8px;
   width: 580px;

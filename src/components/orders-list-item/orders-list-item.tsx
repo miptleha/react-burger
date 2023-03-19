@@ -73,19 +73,19 @@ const OrdersListItem: FC<TProp> = ({order, isPerson}) => {
             {firstSixItems && firstSixItems.map((item: TIngredient | undefined, i: number) => {
               //let zIndex = countItemsMax - i;
               let right = -2 * 10;
-              let counthide = order.ingredients.length - countItemsMax + 1;
+              let countHide = order.ingredients.length - countItemsMax;
               return (
                 <li
                   key={i}
                   style={{ /*zIndex: zIndex,*/ marginRight: right }}
                   className={styles.image_fill}>
                   <img
-                      style={{ opacity: countItemsMax === (i + 1) ? '0.4' : '1' }}
+                      style={{ opacity: countItemsMax === (i + 1) && countHide > 0 ? '0.4' : '1' }}
                       src={item!.image_mobile}
                       alt={item!.name}
                       className={styles.image_position} />
-                  {counthide > 0 && i === (countItemsMax - 1) &&
-                    <span className={`${styles.count_hidden} text text_type_main-default`}>+{counthide}</span>
+                  {countHide > 0 && i === (countItemsMax - 1) &&
+                    <span className={`${styles.count_hidden} text text_type_main-default`}>+{countHide}</span>
                   }
                 </li>
               )
