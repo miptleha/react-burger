@@ -67,6 +67,6 @@ git checkout sprint-1/step-2
 Были [замечания](https://github.com/miptleha/react-burger/pull/4) по загрузке данных с сервера, успешно их исправил, работу приняли и я смержил все в main ветку.
 
 ## Начальный коммит
-Стартовый коммит проекта с помощью [CRA](https://create-react-app.dev/docs/getting-started) с добавленными UI компонентами от [Яндекс](https://github.com/Yandex-Practicum/react-developer-burger-ui-components).   
+Стартовый коммит проекта с помощью [CRA](https://create-react-app.dev/docs/getting-started) с добавленными [UI компонентами](https://github.com/Yandex-Practicum/react-developer-burger-ui-components) от Яндекс.   
 Кода пока никакого не написано, это начальный коммит.
 
