@@ -38,7 +38,7 @@ function ResetPassword() {
     }, [dispatch, state.wasSubmit, userLoggedIn, forgotPassword, requestSuccess, navigate]);
 
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <PasswordInput placeholder='Введите новый пароль' name="password" value={state.password} onChange={onChange} extraClass="mb-6" />

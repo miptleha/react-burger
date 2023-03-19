@@ -2,7 +2,7 @@ import { useMemo, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from '../../hooks/redux';
 import { CLEAR_ORDER, createOrderAction } from '../../services/actions/create-order';
-import { getAuth, getIngredients, getOrder } from '../../services/selectors';
+import { getAuth, getIngredients, createOrder } from '../../services/selectors';
 import { URL_LOGIN } from '../../utils/routes';
 
 import styles from './burger-constructor-order.module.css';
@@ -14,7 +14,7 @@ import { TIngredient } from '../../utils/types';
 
 const BurgerConstructorOrder: FC = () => {
     const { bun, ingredients, sum } = useSelector(getIngredients);
-    const { orderNumber, orderLoading, orderHasErrors } = useSelector(getOrder);
+    const { orderNumber, orderLoading, orderHasErrors } = useSelector(createOrder);
 
     const disabled = useMemo(() => {
         let hasIngredient = (ingredients && ingredients.length > 0) || bun;

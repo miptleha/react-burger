@@ -58,7 +58,7 @@ function ProfileEdit() {
     }, [setNameDisabled, nameRef]);
 
     return (
-        <form className="page-container-inner" onSubmit={onSubmit} onReset={onReset}>
+        <form className="mt-20 page-container-inner" onSubmit={onSubmit} onReset={onReset}>
             <Input extraClass="mb-6" name="name" placeholder="Имя" value={state.name} onChange={onChange} icon="EditIcon" disabled={nameDisabled} onIconClick={nameClick} ref={nameRef} />
             <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} isIcon />
             <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} icon="EditIcon" />

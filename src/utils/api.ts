@@ -1,6 +1,7 @@
 import { setCookie, getCookie } from "./cookie";
 import { TForgotPassword, TIngredient, TLoginUser, TPatchUser, TRegisterUser, TResetPassword } from "./types";
 
+export const WS_URL = "wss://norma.nomoreparties.space";
 const BASE_URL = "https://norma.nomoreparties.space/api/";
 const API_LOAD = "ingredients";
 const API_ORDER = "orders";
@@ -47,15 +48,15 @@ function requestWithRefresh(endpoint: string, options: RequestInit) {
         });
 }
 
-function postOptions(obj: {}) {
-    return requestOptions("POST", {}, obj);
+function postOptions(obj: {}, auth?: boolean) {
+    return requestOptions("POST", auth ? { Authorization: "Bearer " + getCookie("accessToken") } : {}, obj);
 }
 
 function getOptions(auth: boolean) {
     return requestOptions("GET", auth ? { Authorization: "Bearer " + getCookie("accessToken") } : {});
 }
 
-function patchOptions(auth: boolean, obj: {}) {
+function patchOptions(obj: {}, auth?: boolean) {
     return requestOptions("PATCH", auth ? { Authorization: "Bearer " + getCookie("accessToken") } : {}, obj);
 }
 
@@ -79,7 +80,11 @@ export function dataLoad() {
 }
 
 export function orderCreate(ingredients: Array<TIngredient>) {
-    return request(API_ORDER, postOptions({ingredients: ingredients.map(item => item._id)}));
+    return request(API_ORDER, postOptions({ingredients: ingredients.map(item => item._id)}, true));
+}
+
+export function orderGet(orderNum?: string) {
+    return request(`${API_ORDER}/${orderNum}`);
 }
 
 export function registerUser(user: TRegisterUser) {
@@ -111,5 +116,5 @@ export function getUser() {
 }
 
 export function patchUser(user: TPatchUser) {
-    return requestWithRefresh(API_USER, patchOptions(true, user));
+    return requestWithRefresh(API_USER, patchOptions(user, true));
 }

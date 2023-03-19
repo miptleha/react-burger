@@ -39,7 +39,7 @@ function Login() {
     }, [dispatch, location.state, userLoggedIn, navigate]);
 
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 {requestStart ? <Loader /> : (
                     <>

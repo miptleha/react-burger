@@ -9,7 +9,6 @@
 .page-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     height: calc(100% - 200px);
     overflow-y: hidden;
 }
