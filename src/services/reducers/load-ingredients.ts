@@ -1,16 +1,24 @@
+import { TIngredient } from '../../utils/types';
 import { 
     LOAD_DATA_START, 
     LOAD_DATA_SUCCESS, 
-    LOAD_DATA_ERROR
+    LOAD_DATA_ERROR,
+    TLoadIngredientsActions
 } from '../actions/load-ingredients';
 
-const initialState = {
+type TLoadIngredientsState = {
+    dataLoading: boolean;
+    dataHasErrors: boolean;
+    data: Array<TIngredient>;
+}
+
+const initialState: TLoadIngredientsState = {
     dataLoading: false,
     dataHasErrors: false,
     data: []
 }
 
-export function loadIngredientsReducer(state = initialState, action) {
+export function loadIngredientsReducer(state = initialState, action: TLoadIngredientsActions) {
     switch (action.type) {
         case LOAD_DATA_START:
             return { ...state, dataLoading: true, dataHasErrors: false };

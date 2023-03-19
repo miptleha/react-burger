@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { URL_PROFILE, URL_ROOT, URL_LENTA } from '../../utils/routes';
+import { URL_PROFILE, URL_ROOT, URL_FEED } from '../../utils/routes';
 import styles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import IconLink from '../icon-link/icon-link';
@@ -11,7 +11,7 @@ const AppHeader: FC = () => {
                 <nav className={styles.left}>
                     <ul className={styles.list}>
                         <li><IconLink href={URL_ROOT} icon={BurgerIcon}>Конструктор</IconLink></li>
-                        <li><IconLink href={URL_LENTA} icon={ListIcon}>Лента заказов</IconLink></li>
+                        <li><IconLink href={URL_FEED} icon={ListIcon}>Лента заказов</IconLink></li>
                     </ul>
                 </nav>
 

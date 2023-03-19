@@ -1,0 +1,10 @@
+.container {
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    overflow: auto;
+    padding-right: 8px;
+    width: 850px;
+  }
+  

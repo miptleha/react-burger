@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { SET_TAB } from '../../services/actions/tab-info';
 import { getTab } from '../../services/selectors';
 

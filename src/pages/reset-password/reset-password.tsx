@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
@@ -17,7 +17,7 @@ function ResetPassword() {
     const navigate = useNavigate();
 
     const submitCb = useCallback((state: TState) => {
-        dispatch(authResetPasswordAction(state) as any);
+        dispatch(authResetPasswordAction(state));
     }, [dispatch]);
 
     const { state, onChange, onSubmit } = useForm<TState>({
@@ -38,7 +38,7 @@ function ResetPassword() {
     }, [dispatch, state.wasSubmit, userLoggedIn, forgotPassword, requestSuccess, navigate]);
 
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <PasswordInput placeholder='Введите новый пароль' name="password" value={state.password} onChange={onChange} extraClass="mb-6" />

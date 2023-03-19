@@ -1,5 +1,5 @@
 import { useMemo, FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/redux';
 import { useParams } from 'react-router';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR, MESSAGE_LOADING } from '../../utils/message';

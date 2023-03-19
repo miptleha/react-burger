@@ -1,0 +1,79 @@
+.main_container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.number_order {
+    text-align: center;
+}
+
+.status_order {
+    color: #00CCCC;
+}
+
+.fill_order {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 320px;
+    overflow: auto;
+    width: 640px;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+}
+
+.fill_order::-webkit-scrollbar {
+    background-color: #2F2F37;
+    width: 8px;
+}
+
+.fill_order::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.image_name {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+}
+
+.count_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 170px;
+}
+
+.pname {
+    width: 350px;
+    word-wrap: normal;
+}
+
+.row_fill {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.image_fill {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    background: linear-gradient(#131316, #131316) padding-box, linear-gradient(to right, #801ab2, #4c4cff) border-box;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    height: 64px;
+    width: 64px;
+}
+
+.food_order {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

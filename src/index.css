@@ -9,8 +9,7 @@
 .page-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: calc(100% - 200px);
+    height: calc(100% - 100px);
     overflow-y: hidden;
 }
 
@@ -64,3 +63,29 @@
     color: var(--colors-interface-error);
     max-width: 500px;
 }
+
+.feed_orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+    padding-right: 8px;
+    width: 580px;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+  }
+  
+  .feed .feed_orders {
+    max-height: calc(100vh - 250px);
+  }
+  
+  .feed_orders::-webkit-scrollbar {
+    background-color: #2F2F37;
+    width: 8px;
+  }
+  
+  .feed_orders::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+  }

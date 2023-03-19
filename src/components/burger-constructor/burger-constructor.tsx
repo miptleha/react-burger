@@ -1,9 +1,9 @@
 import { useEffect, useCallback, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { useDrop } from 'react-dnd';
 import { SET_BUN, SET_SUM, DELETE_INGREDIENT, addIngredient } from '../../services/actions/burger-constructor';
 import { getIngredients } from '../../services/selectors';
-import { TIngredientConstructor } from '../../utils/types';
+import { TIngredient, TIngredientConstructor } from '../../utils/types';
 
 import styles from './burger-constructor.module.css';
 import { BUN, SAUCE, MAIN } from '../../utils/dataNames';
@@ -20,27 +20,27 @@ const BurgerConstructor: FC = () => {
         if (bun) {
             sum += bun.price * 2;
         }
-        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum += item.price, 0);
+        sum += ingredients.reduce((sum: number, item: TIngredientConstructor) => sum + item.price, 0);
         dispatch({ type: SET_SUM, sum });
     }, [bun, ingredients, dispatch]);
 
     const [, dropTargetBunUp] = useDrop({
         accept: BUN,
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch({ type: SET_BUN, item: item });
         }
     });
 
     const [, dropTargetBunDown] = useDrop({
         accept: BUN,
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch({ type: SET_BUN, item: item });
         }
     });
 
     const [, dropTargetIngredient] = useDrop({
         accept: [SAUCE, MAIN],
-        drop(item) {
+        drop(item: TIngredient) {
             dispatch(addIngredient(item));
         }
     });

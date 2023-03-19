@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../hooks/redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { getAuth } from '../../services/selectors';
@@ -18,7 +18,7 @@ function Login() {
     const location = useLocation();
 
     const submitCb = useCallback((state: TState) => {
-        dispatch(authLoginAction(state) as any);
+        dispatch(authLoginAction(state));
     }, [dispatch]);
 
     const { state, onChange, onSubmit } = useForm<TState>({
@@ -39,7 +39,7 @@ function Login() {
     }, [dispatch, location.state, userLoggedIn, navigate]);
 
     return (
-        <main className="page-container">
+        <main className="mt-20 page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 {requestStart ? <Loader /> : (
                     <>

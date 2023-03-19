@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../hooks/redux';
 import { getData } from '../../services/selectors';
 import { MESSAGE_ERROR } from '../../utils/message';
 

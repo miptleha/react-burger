@@ -1,5 +1,5 @@
 import React, { useCallback, FC, SyntheticEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/redux';
 import { useDrag } from 'react-dnd';
 import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { URL_INGREDIENTS } from '../../utils/routes';

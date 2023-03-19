@@ -1,6 +1,6 @@
 export const URL_ROOT = "/";
 export const URL_INGREDIENTS = "/ingredients";
-export const URL_LENTA = "/asd";
+export const URL_FEED = "/feed";
 export const URL_LOGIN ="/login";
 export const URL_REGISTER = "/register";
 export const URL_RESET_PASSWORD = "/reset-password";

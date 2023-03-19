@@ -2,16 +2,23 @@ import {
     CREATE_ORDER_START, 
     CREATE_ORDER_SUCCESS, 
     CREATE_ORDER_ERROR, 
-    CLEAR_ORDER
+    CLEAR_ORDER,
+    TCreateOrderActions
 } from '../actions/create-order';
 
-const initialState = {
+type TCreateOrderState = {
+    orderLoading: boolean;
+    orderHasErrors: boolean;
+    orderNumber: number | null;
+}
+
+const initialState : TCreateOrderState = {
     orderLoading: false,
     orderHasErrors: false,
     orderNumber: null
 }
 
-export function createOrderReducer(state = initialState, action) {
+export function createOrderReducer(state = initialState, action: TCreateOrderActions): TCreateOrderState {
     switch (action.type) {
         case CREATE_ORDER_START:
             return { ...state, orderLoading: true, orderHasErrors: false };
