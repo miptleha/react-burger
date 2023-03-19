@@ -21,7 +21,7 @@ function FeedPage() {
     }, [dispatch]);
 
     return (
-        <div className={styles.container}>
+        <div className="feed">
             {!connected && <Loader />}
             {!!error && <p className={`mb-2 error-text text text_type_main-default`}>{error}</p>}
             {connected && !!message && (

@@ -26,6 +26,10 @@ export type TIngredient = {
     __v: number;
 };
 
+export type TIngredientQty = TIngredient & {
+    qty: number;
+}
+
 export type TIngredientConstructor = TIngredient & {
     id: string;
 };

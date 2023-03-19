@@ -20,7 +20,18 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
         if (action.addToken) {
           url += `?token=${getCookie('accessToken')}`;
         }
-        socket = new WebSocket(url);
+        
+        let cnt = 0;
+        //проблемы с Firefox, иногда не может соединиться
+        while (cnt < 10) {
+          try {
+            socket = new WebSocket(url);
+            break;
+          } catch {
+            cnt++;
+          }
+        }
+        
         isWsConnected = true;
         window.clearTimeout(timerWsReconnect);
         dispatch({ type: wsActions.onSuccess });

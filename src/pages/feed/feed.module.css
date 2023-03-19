@@ -1,21 +1,20 @@
 .content {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    width: 1230px;
-    max-width: 1250px;
-  }
-  
-  .left_section {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-width: 600px;
-  }
-  
-  .right_section {
-    margin-left: 60px;
-    margin-top: 80px;
-  } 
-  
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 1230px;
+  max-width: 1250px;
+}
+
+.left_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 600px;
+}
+
+.right_section {
+  margin-left: 60px;
+  margin-top: 80px;
+}

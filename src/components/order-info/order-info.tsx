@@ -5,7 +5,7 @@ import { getData, getOrder } from '../../services/selectors';
 import { getOrderAction } from '../../services/actions/get-order';
 
 import styles from './order-info.module.css';
-import { TIngredient } from '../../utils/types';
+import { TIngredient, TIngredientQty } from '../../utils/types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 
 type TProps = {
@@ -28,9 +28,24 @@ const OrderInfo: FC<TProps> = ({ item }) => {
       if (order === null) {
         return null;
       }
-      return order!.ingredients.map((elemId: string) => {
-        return ingredients.find((elem: TIngredient) => elem._id === elemId)
-      })
+      let group: Record<string, TIngredientQty> = {};
+      for (let item of order!.ingredients) {
+        let ingredient = ingredients.find((elem: TIngredient) => elem._id === item);
+        if (ingredient) {
+          if (!group[item]) {
+            group[item] = {...ingredient, qty: 0};
+          }
+          group[item].qty += 1;
+        }
+      }
+      let res: Array<TIngredientQty> = [];
+      for (let item of order!.ingredients) {
+        if (group[item]) {
+          res.push(group[item]);
+          delete group[item];
+        }
+      }
+      return res;
     }, [ingredients, order]
   );
 
@@ -73,7 +88,7 @@ const OrderInfo: FC<TProps> = ({ item }) => {
             {'Состав:'}
           </p>
           <section className={styles.fill_order}>
-            {orderIngredients && orderIngredients.map((item: TIngredient | undefined, i: number) => {
+            {orderIngredients && orderIngredients.map((item, i: number) => {
               return (
                 <li key={i} className="mt-4 mr-6">
                   <div className={styles.row_fill}>
@@ -81,10 +96,10 @@ const OrderInfo: FC<TProps> = ({ item }) => {
                       <div className={styles.image_fill}>
                         <img src={item!.image_mobile} alt={item!.name} />
                       </div>
-                      <p className={`text text_type_main-default ml-4 ${styles.pname}`}>{item!.name}</p>
+                      <p className={`text text_type_main-default ml-4 ${styles.pname}`}>{item.name}</p>
                     </div>
                     <div className={styles.count_price}>
-                      <span className="text text_type_digits-default mr-2">{`1 x ${item!.price}`}</span>
+                      <span className="text text_type_digits-default mr-2">{`${item.qty} x ${item.price}`}</span>
                       <CurrencyIcon type="primary" />
                     </div>
                   </div>

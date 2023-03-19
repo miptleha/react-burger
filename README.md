@@ -18,6 +18,7 @@ npm start
 ```
 git checkout sprint-5/step-1
 ```
+[Замечания](https://github.com/miptleha/react-burger/pull/12) по спринту.
 
 ## Спринт 4
 Перевод проекта на Typescript за исключением хранилища. Файлы jsx/js заменены на tsx/ts.

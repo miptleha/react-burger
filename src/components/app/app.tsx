@@ -64,12 +64,12 @@ function App() {
                 </Routes>
                 {stateLocation &&
                     <Routes>
-                        <Route path="/feed/:id" element={
+                        <Route path={`${URL_FEED}/:id`} element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />
                             </Modal>
                         } />
-                        <Route path="/profile/orders/:id" element={
+                        <Route path={`${URL_PROFILE}/${URL_PROFILE_ORDERS}/:id`} element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />
                             </Modal>
