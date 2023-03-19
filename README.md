@@ -51,7 +51,7 @@ git checkout sprint-2/step-2
 ## Спринт 1
 ### Шаг 1
 Создали папку [src/components](src/components/), поместили туда app.js и 3 компонента: AppHeader, BurgerContructor и BurgerIngredients.   
-Данные с бургерами поместили в файл [src/utils/data.js](src/utils/data.js).  
+Данные с бургерами поместили в файл ~~[src/utils/data.js](src/utils/data.js)~~ (загрузка ведется с сервера яндекс).  
 Делаем начальную верстку главной страницы приложения.
 ```
 git checkout sprint-1/step-1
