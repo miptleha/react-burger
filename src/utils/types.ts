@@ -4,7 +4,6 @@ import { TAuthActions } from "../services/actions/auth";
 import { TBurgerConstructorActions } from "../services/actions/burger-constructor";
 import { TCreateOrderActions } from "../services/actions/create-order";
 import { TGetOrderActions } from "../services/actions/get-order";
-import { TIngredientWindowActions } from "../services/actions/ingredient-window";
 import { TLoadIngredientsActions } from "../services/actions/load-ingredients";
 import { TOrdersAllActions, TwsOrdersAllActions } from "../services/actions/orders-all";
 import { TOrdersUserActions, TwsOrdersUserActions } from "../services/actions/orders-user";
@@ -85,8 +84,8 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export type TDispatch = typeof store.dispatch;
 
-export type TApplicationActions = TAuthActions | TBurgerConstructorActions | TCreateOrderActions | 
-    TIngredientWindowActions | TLoadIngredientsActions | TTabInfoActions | 
+export type TApplicationActions = TAuthActions | TBurgerConstructorActions | 
+    TCreateOrderActions | TLoadIngredientsActions | TTabInfoActions | 
     TOrdersAllActions | TOrdersUserActions | TGetOrderActions;
 
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

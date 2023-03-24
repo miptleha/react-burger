@@ -15,7 +15,7 @@ function Profile() {
     return (
         <main className="page-container page-container-profile">
             <div className="page-container-profile-wrapper">
-            <nav className="page-container-profile-sidebar mt-20 ml-5 mr-15">
+            <nav className="page-container-profile-sidebar ml-5 mr-15">
                 <ul>
                     <li>
                         <NavLink to="" end>{({ isActive }) => (

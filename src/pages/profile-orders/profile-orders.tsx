@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from '../../hooks/redux';
 import { getOrdersUser } from '../../services/selectors';
 import { ORDERS_USER_END, ORDERS_USER_START } from '../../services/actions/orders-user';
-import { WS_URL } from '../../utils/api';
+import { WS_URL_USER } from '../../utils/api';
 
 import styles from './profile-orders.module.css';
 import Loader from '../../components/loader/loader';
@@ -23,10 +23,10 @@ function ProfileOrders() {
     }, [message]);
 
     useEffect(() => {
-        dispatch({ type: ORDERS_USER_START, url: `${WS_URL}/orders`, addToken: true });
+        dispatch({ type: ORDERS_USER_START, url: WS_URL_USER, addToken: true });
         return () => {
             dispatch({ type: ORDERS_USER_END });
-        }
+        };
     }, [dispatch]);
 
     return (
@@ -34,7 +34,7 @@ function ProfileOrders() {
             {!connected && <Loader />}
             {!!error && <p className={`mb-2 error-text text text_type_main-default`}>{error}</p>}
             {connected && !!messageSorted && (
-                <OrdersList data={messageSorted!} />
+                <OrdersList data={messageSorted!} isPerson />
             )}
         </div>
     );

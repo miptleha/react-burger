@@ -1,21 +1,15 @@
-import { useMemo, useRef, useCallback, FC } from 'react';
+import { useMemo, useRef, FC } from 'react';
 import { useDispatch, useSelector } from '../../hooks/redux';
-import { useNavigate } from 'react-router';
 import { BUN, SAUCE, MAIN, names } from '../../utils/dataNames';
-import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import { SET_TAB } from '../../services/actions/tab-info';
-import { getData, getDisplayedIngredient, getIngredients, getTab } from '../../services/selectors';
-import { URL_ROOT } from '../../utils/routes';
+import { getData, getIngredients, getTab } from '../../services/selectors';
 import { TIngredient } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsTabs from '../burger-ingredients-tabs/burger-ingredients-tabs';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
-import Modal from '../modal/modal';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 
 const BurgerIngredients: FC = () => {
-    const displayedIngredient = useSelector(getDisplayedIngredient);
     const { data } = useSelector(getData);
     const tab = useSelector(getTab);
     const { bun, ingredients } = useSelector(getIngredients);
@@ -35,7 +29,6 @@ const BurgerIngredients: FC = () => {
     }, [bun, ingredients]);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const groups = useMemo(() => {
         let res: Record<string, Array<TIngredient>> = {};
@@ -72,12 +65,6 @@ const BurgerIngredients: FC = () => {
         }
     }
 
-    const hideDialog = useCallback((e?: Event) => {
-        navigate(URL_ROOT, { replace: true });
-        dispatch({ type: SET_DISPLAYED_INGREDIENT, item: null });
-        e?.stopPropagation();
-    }, [dispatch, navigate]);
-
     return (
         <section className={styles.section}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -95,12 +82,6 @@ const BurgerIngredients: FC = () => {
                     </div>
                 ))}
             </div>
-
-            {displayedIngredient && (
-                <Modal caption="Детали ингридиента" onClose={hideDialog}>
-                    <IngredientDetails item={displayedIngredient} />
-                </Modal>
-            )}
         </section>
     );
 }

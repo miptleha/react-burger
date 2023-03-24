@@ -4,23 +4,30 @@
     width: 600px;
 }
 
-.number_order {
-    text-align: center;
-}
-
 .status_order {
     color: #00CCCC;
+    margin-bottom: 40px;
 }
 
-.fill_order {
+.container_order {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 320px;
     overflow: auto;
-    width: 640px;
+    width: 625px;
     scrollbar-color: #8585AD #2F2F37;
     scrollbar-width: thin;
+}
+
+@media (max-height: 800px) {
+    .status_order {
+        margin-bottom: 20px;
+    }
+
+    .container_order {
+        height: 180px;
+    }
 }
 
 .fill_order::-webkit-scrollbar {
@@ -48,15 +55,15 @@
     width: 170px;
 }
 
-.pname {
-    width: 350px;
-    word-wrap: normal;
-}
-
-.row_fill {
+.container_row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.name {
+    width: 350px;
+    word-wrap: normal;
 }
 
 .image_fill {

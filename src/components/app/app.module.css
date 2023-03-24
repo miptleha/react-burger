@@ -2,7 +2,6 @@
     display: flex;
     justify-content: stretch;
     flex-direction: column;
-    height: 100vh;
 }
 
 .main {

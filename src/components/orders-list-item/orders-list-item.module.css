@@ -15,9 +15,6 @@
 .title_order {
     min-height: 30px;
     line-height: 30px;
-    padding: 0px 0px 12px 24px;
-    margin: 0;
-    z-index: 123123;
 }
 
 .time_order {
@@ -29,11 +26,6 @@
 .number_order {
     max-width: 20vh;
     line-height: 24px;
-}
-
-.status_order {
-    padding: 0px 0px 0px 24px;
-    margin: 12px 0px 0px 0px;
 }
 
 .status_done {
@@ -57,7 +49,6 @@ li {
     align-items: center;
     height: 64px;
     padding: 0px;
-    margin: 12px 24px 24px 24px;
 }
 
 .image_fill {
@@ -96,8 +87,9 @@ li {
 }
 
 .count_hidden {
-    left: 40%;
-    top: 30%;
     position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     line-height: 24px;
 }

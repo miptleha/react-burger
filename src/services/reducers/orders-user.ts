@@ -24,7 +24,7 @@ export function ordersUserReducer(state = initialState, action: TOrdersUserActio
         case ORDERS_USER_SUCCESS:
             return { ...state, error: null, connected: true };
         case ORDERS_USER_ERROR:
-            return { ...state, error: action.error, connected: false };
+            return { ...state, error: action.error };
         case ORDERS_USER_CLOSED:
             return { ...state, error: null, connected: false };
         case ORDERS_USER_MESSAGE:

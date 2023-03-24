@@ -1,7 +1,9 @@
 import { setCookie, getCookie } from "./cookie";
 import { TForgotPassword, TIngredient, TLoginUser, TPatchUser, TRegisterUser, TResetPassword } from "./types";
 
-export const WS_URL = "wss://norma.nomoreparties.space";
+const WS_URL = "wss://norma.nomoreparties.space";
+export const WS_URL_ALL = `${WS_URL}/orders/all`;
+export const WS_URL_USER = `${WS_URL}/orders`;
 const BASE_URL = "https://norma.nomoreparties.space/api/";
 const API_LOAD = "ingredients";
 const API_ORDER = "orders";
@@ -64,8 +66,8 @@ function requestOptions(method: 'GET' | 'POST' | 'PATCH', headers: {} = {}, body
     let opt: RequestInit = {
         method,
         headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json;charset=utf-8',
-            'accept': 'application/json',
             ...headers
         }
     };
@@ -80,7 +82,7 @@ export function dataLoad() {
 }
 
 export function orderCreate(ingredients: Array<TIngredient>) {
-    return request(API_ORDER, postOptions({ingredients: ingredients.map(item => item._id)}, true));
+    return requestWithRefresh(API_ORDER, postOptions({ingredients: ingredients.map(item => item._id)}, true));
 }
 
 export function orderGet(orderNum?: string) {
