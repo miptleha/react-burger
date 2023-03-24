@@ -35,12 +35,12 @@ function ForgotPassword() {
     }, [dispatch, state.wasSubmit, userLoggedIn, requestError, requestSuccess, navigate]);
 
     return (
-        <main className="mt-20 page-container">
+        <main className="page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <EmailInput extraClass="mb-6" placeholder='Укажите e-mail' name="email" value={state.email} onChange={onChange} />
                 {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
-                {requestStart ? <Loader /> : <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.email === ""}>Восстановить</Button>}
+                {requestStart ? <Loader /> : <Button type="primary" extraClass="button-bottom" htmlType="submit" disabled={state.email === ""}>Восстановить</Button>}
                 <p className="text text_type_main-default text_color_inactive">Вспомнили пароль? <Link className="page-link" to={URL_LOGIN}>Войти</Link></p>
             </form>
         </main>

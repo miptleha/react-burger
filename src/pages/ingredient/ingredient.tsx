@@ -2,7 +2,7 @@ import IngredientDetails from '../../components/ingredient-details/ingredient-de
 
 function IngredientPage() {
     return (
-        <main className="mt-20 page-container">
+        <main className="page-container">
             <div className="page-container-inner">
                 <IngredientDetails />
             </div>

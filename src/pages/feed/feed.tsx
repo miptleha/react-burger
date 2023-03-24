@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../hooks/redux';
 import { ORDERS_ALL_END, ORDERS_ALL_START } from '../../services/actions/orders-all';
-import { WS_URL } from '../../utils/api';
+import { WS_URL_ALL } from '../../utils/api';
 import { getOrdersAll } from '../../services/selectors';
 
 import styles from './feed.module.css';
@@ -14,10 +14,10 @@ function FeedPage() {
     const { connected, error, message } = useSelector(getOrdersAll);
 
     useEffect(() => {
-        dispatch({ type: ORDERS_ALL_START, url: `${WS_URL}/orders/all` });
+        dispatch({ type: ORDERS_ALL_START, url: WS_URL_ALL });
         return () => {
             dispatch({ type: ORDERS_ALL_END });
-        }
+        };
     }, [dispatch]);
 
     return (

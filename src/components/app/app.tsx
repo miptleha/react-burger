@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from '../../hooks/redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { SET_DISPLAYED_INGREDIENT } from '../../services/actions/ingredient-window';
 import {
     URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
     URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY, URL_FEED
@@ -31,14 +30,10 @@ function App() {
     }, [dispatch]);
 
     const stateLocation = location.state && location.state.location;
-    const item = location.state && location.state.item;
-    useEffect(() => {
-        dispatch({ type: SET_DISPLAYED_INGREDIENT, item: item });
-    }, [dispatch, item]);
 
     const handleCloseModalDetail = () => {
         navigate(-1);
-      }
+    }
 
     return (
         <div className={styles.container}>
@@ -64,6 +59,13 @@ function App() {
                 </Routes>
                 {stateLocation &&
                     <Routes>
+                        <Route path="/ingredients/:id" element={
+                            <div>
+                                <Modal onClose={handleCloseModalDetail} caption="Детали ингредиента">
+                                    <IngredientPage />
+                                </Modal>
+                            </div>
+                        } />
                         <Route path={`${URL_FEED}/:id`} element={
                             <Modal onClose={handleCloseModalDetail}>
                                 <OrderInfo />

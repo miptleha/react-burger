@@ -52,20 +52,18 @@ const BurgerConstructorOrder: FC = () => {
             {orderHasErrors && (
                 <p className={`mt-2 page-container-inner error-text text text_type_main-default`}>Ошибка при создании заказа</p>
             )}
-            <div className={`${styles.total} mr-4 mt-10`}>
-                {orderLoading ? <Loader /> : (
-                    <>
-                        <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
-                        <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
-                        <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
-                    </>
-                )}
-                {orderNumber && (
-                    <Modal onClose={hideOrder}>
-                        <OrderDetails number={orderNumber} />
-                    </Modal>
-                )}
-            </div>
+            {orderLoading ? <Loader /> : (
+                <div className={`${styles.total} mr-4 mt-10`}>
+                    <div className="text text_type_digits-medium mr-2 mb-1">{sum}</div>
+                    <div className={`${styles['total-icon']} mr-10`}><CurrencyIcon type="primary" /></div>
+                    <Button htmlType="button" type="primary" disabled={disabled} onClick={showOrder}>Оформить заказ</Button>
+                    {orderNumber && (
+                        <Modal onClose={hideOrder}>
+                            <OrderDetails number={orderNumber} />
+                        </Modal>
+                    )}
+                </div>
+            )}
         </>
     );
 }

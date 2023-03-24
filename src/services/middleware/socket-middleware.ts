@@ -4,6 +4,7 @@ import { getCookie } from '../../utils/cookie';
 import { getEventMessage } from '../../utils/message';
 
 import type { AppDispatch, RootState, wsActionsTypes } from '../../utils/types';
+import { authGetUserAction } from '../actions/auth';
 
 export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
@@ -22,8 +23,8 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
         }
         
         let cnt = 0;
-        //проблемы с Firefox, иногда не может соединиться
-        while (cnt < 10) {
+        //при нестабильном соединении
+        while (cnt < 3) {
           try {
             socket = new WebSocket(url);
             break;
@@ -59,7 +60,9 @@ export const socketMiddleware = (wsActions: wsActionsTypes): Middleware => {
           const parsedData = JSON.parse(data);
           if (!parsedData?.success) {
             if (parsedData?.message === 'Invalid or missing token') {
-              refreshToken();
+              refreshToken().catch(err => {
+                dispatch(authGetUserAction());
+              });
             }
             dispatch({ type: wsActions.onError, error: parsedData?.message });
           } else {

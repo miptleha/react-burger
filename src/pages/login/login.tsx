@@ -39,7 +39,7 @@ function Login() {
     }, [dispatch, location.state, userLoggedIn, navigate]);
 
     return (
-        <main className="mt-20 page-container">
+        <main className="page-container">
             <form className="page-container-inner" onSubmit={onSubmit}>
                 {requestStart ? <Loader /> : (
                     <>
@@ -47,7 +47,7 @@ function Login() {
                         <EmailInput extraClass="mb-6" name="email" value={state.email} onChange={onChange} />
                         <PasswordInput extraClass="mb-6" name="password" value={state.password} onChange={onChange} />
                         {!!requestError && state.wasSubmit && <p className={`mb-2 error-text text text_type_main-default`}>{requestError}</p>}
-                        <Button type="primary" extraClass="mb-20" htmlType="submit" disabled={state.email === "" || state.password === ""}>Войти</Button>
+                        <Button type="primary" extraClass="button-bottom" htmlType="submit" disabled={state.email === "" || state.password === ""}>Войти</Button>
                         <p className="text text_type_main-default text_color_inactive mb-4">Вы — новый пользователь? <Link className="page-link" to={URL_REGISTER}>Зарегистрироваться</Link></p>
                         <p className="text text_type_main-default text_color_inactive">Забыли пароль? <Link className="page-link" to={URL_FORGOT_PASSWORD}>Восстановить пароль</Link></p>
                     </>)}

@@ -24,7 +24,7 @@ export function ordersAllReducer(state = initialState, action: TOrdersAllActions
         case ORDERS_ALL_SUCCESS:
             return { ...state, error: null, connected: true };
         case ORDERS_ALL_ERROR:
-            return { ...state, error: action.error, connected: false };
+            return { ...state, error: action.error };
         case ORDERS_ALL_CLOSED:
             return { ...state, error: null, connected: false };
         case ORDERS_ALL_MESSAGE:
