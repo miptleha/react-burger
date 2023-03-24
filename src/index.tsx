@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
-        <BrowserRouter>
+        <BrowserRouter basename={'/react-burger'}>
           <App />
         </BrowserRouter>
       </DndProvider>
