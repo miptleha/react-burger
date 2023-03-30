@@ -12,7 +12,7 @@ type TLoadIngredientsState = {
     data: Array<TIngredient>;
 }
 
-const initialState: TLoadIngredientsState = {
+export const initialState: TLoadIngredientsState = {
     dataLoading: false,
     dataHasErrors: false,
     data: []

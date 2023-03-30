@@ -5,6 +5,7 @@ import {
     DELETE_INGREDIENT,
     SWAP_INGREDIENTS,
     SET_SUM,
+    CLEAR_CONSTRUCTOR,
     TBurgerConstructorActions
 } from '../actions/burger-constructor';
 
@@ -14,7 +15,7 @@ export type TBurgerConstructorState = {
     sum: number;
 }
 
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
     bun: null,
     ingredients: [],
     sum: 0
@@ -34,6 +35,8 @@ export function burgerConstructorReducer(state = initialState, action: TBurgerCo
             return newState;
         case SET_SUM:
             return { ...state, sum: action.sum };
+        case CLEAR_CONSTRUCTOR:
+            return initialState;
 
         default:
             return state;

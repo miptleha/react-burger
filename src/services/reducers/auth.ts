@@ -44,7 +44,7 @@ type TAuthState = {
     forgotPassword: boolean;
 }
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
     requestStart: false,
     requestError: null,
     requestSuccess: false,

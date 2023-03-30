@@ -4,7 +4,8 @@ import { SET_TAB, TTabInfoActions } from '../actions/tab-info';
 type TTabInfoState = {
     tab: string;
 }
-const initialState: TTabInfoState = {
+
+export const initialState: TTabInfoState = {
     tab: BUN
 }
 
