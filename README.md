@@ -1,6 +1,8 @@
 # Космическая бургерная
 ![img](logo.svg)
 
+Сайт опубликован: https://miptleha.github.io/react-burger/
+
 
 Учебный проект на курсе [react-разработчик](https://practicum.yandex.ru/react/) от yandex. Сделан по [макету](https://www.figma.com/file/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=0%3A1&t=L1Qw4Ncywvdufa0e-0).
 ```
@@ -11,6 +13,12 @@ npm start
 ```
 
 На протяжении 3-х месяцев для закрепления полученных сведений о возможностях React проект делался по спринтам (каждый по 2 недели).
+
+## Спринт 6
+Написание тестов для сайта и публикация.   
+```
+git checkout sprint-6/step-1
+```
 
 ## Спринт 5
 Перевод оставшихся js-файлов в ts-файлы.   

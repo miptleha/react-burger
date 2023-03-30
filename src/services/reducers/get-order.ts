@@ -12,7 +12,7 @@ type TGetOrderState = {
     order: TOrder | null;
 }
 
-const initialState : TGetOrderState = {
+export const initialState : TGetOrderState = {
     requestStart: false,
     requestError: null,
     order: null

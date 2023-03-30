@@ -3,7 +3,7 @@ import { useDispatch } from '../../hooks/redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import {
     URL_ROOT, URL_INGREDIENTS, URL_LOGIN, URL_REGISTER, URL_RESET_PASSWORD, URL_FORGOT_PASSWORD,
-    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY, URL_FEED
+    URL_PROFILE, URL_PROFILE_ORDERS, URL_PROFILE_LOGOUT, URL_ANY, URL_FEED, URL_GITHUB
 } from '../../utils/routes';
 
 import styles from './app.module.css';
@@ -41,6 +41,7 @@ function App() {
             <div className={styles.main}>
                 <Routes location={stateLocation || location}>
                     <Route path={URL_ROOT} element={<MainPage />} />
+                    <Route path={URL_GITHUB} element={<MainPage />} />
                     <Route path={URL_FEED} element={<FeedPage />} />
                     <Route path={`${URL_INGREDIENTS}/:id`} element={<IngredientPage />} />
                     <Route path={`${URL_FEED}/:id`} element={<OrderPage />} />

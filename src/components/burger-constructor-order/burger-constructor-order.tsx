@@ -11,6 +11,7 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import Loader from '../loader/loader';
 import { TIngredient } from '../../utils/types';
+import { CLEAR_CONSTRUCTOR } from '../../services/actions/burger-constructor';
 
 const BurgerConstructorOrder: FC = () => {
     const { bun, ingredients, sum } = useSelector(getIngredients);
@@ -45,6 +46,7 @@ const BurgerConstructorOrder: FC = () => {
 
     function hideOrder() {
         dispatch({ type: CLEAR_ORDER });
+        dispatch({ type: CLEAR_CONSTRUCTOR });
     }
 
     return (

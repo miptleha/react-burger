@@ -13,7 +13,7 @@ type TOrdersUserState = {
     error: string | null;
 };
 
-const initialState: TOrdersUserState = {
+export const initialState: TOrdersUserState = {
     connected: false,
     message: null,
     error: null
