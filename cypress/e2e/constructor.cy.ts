@@ -3,7 +3,7 @@ import login from '../fixtures/login.json';
 
 describe('constuctor page', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000');
+        cy.visit('http://localhost:3000/react-burger');
     });
 
     it('show ingredient detail', () => {

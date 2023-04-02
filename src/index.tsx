@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './components/app/app';
+import { URL_GITHUB } from './utils/routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,7 +21,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
-        <BrowserRouter>
+        <BrowserRouter basename={URL_GITHUB}>
           <App />
         </BrowserRouter>
       </DndProvider>

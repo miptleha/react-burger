@@ -1,7 +1,7 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
-  "homepage": "./",
+  "homepage": "/react-burger",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
@@ -36,7 +36,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-script": "npm run build && scp -r ./build/* miptleha@158.160.38.35:/home/miptleha/react-burger",
+    "deploy-script": "npm run build && scp -r ./build/* miptleha@158.160.38.35:/home/miptleha/http/react-burger",
     "cypress": "cypress open"
   },
   "eslintConfig": {

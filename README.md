@@ -4,7 +4,7 @@
 ![img](logo.svg)
 
 Сайт опубликован: https://miptleha.github.io/react-burger/   
-Яндекс облако: https://miptleha.nomoredomains.work
+Яндекс облако (на бесплатный период): https://miptleha.nomoredomains.work/react-burger/
 
 
 Учебный проект на курсе [react-разработчик](https://practicum.yandex.ru/react/) от yandex. Сделан по [макету](https://www.figma.com/file/zFGN2O5xktHl9VmoOieq5E/React-_-Проектные-задачи_external_link?node-id=0%3A1&t=L1Qw4Ncywvdufa0e-0).
